@@ -1,0 +1,289 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner_video_UXhgWR": {
+      "type": "banner-video",
+      "blocks": {
+        "heading_TijDwc": {
+          "type": "heading",
+          "settings": {
+            "heading": "Power lifters!",
+            "heading_size": "h1"
+          }
+        },
+        "text_NU3qUz": {
+          "type": "text",
+          "settings": {
+            "text": "Este texto es de prueba",
+            "text_style": "body"
+          }
+        },
+        "buttons_zrMEwU": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "dsa",
+            "button_link_1": "",
+            "button_style_secondary_1": true,
+            "button_label_2": "Botón 2",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_TijDwc",
+        "text_NU3qUz",
+        "buttons_zrMEwU"
+      ],
+      "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/387801761c5547e6bb228dc51dc262be.mp4",
+        "autoplay": true,
+        "loop": true,
+        "overlay_opacity": 100,
+        "text_color": "#ffffff",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center"
+      }
+    },
+    "text_carrousel_kV7e8R": {
+      "type": "text-carrousel",
+      "settings": {
+        "text_1": "aaaa",
+        "text_2": "aaaa",
+        "text_3": "aaa",
+        "text_4": "Fourth Recommendation"
+      }
+    },
+    "recomendatios_custom_XDTDkt": {
+      "type": "recomendatios-custom",
+      "blocks": {
+        "image_D8nHBM": {
+          "type": "image",
+          "settings": {
+            "image_upload": "shopify://shop_images/LA_Weekly_logo_1.png"
+          }
+        },
+        "image_NgrVQD": {
+          "type": "image",
+          "settings": {
+            "image_upload": "shopify://shop_images/Rolling_Stone_logo_1.png"
+          }
+        },
+        "image_hUngtN": {
+          "type": "image",
+          "settings": {
+            "image_upload": "shopify://shop_images/950d12142c03c205d027fdbe85a37ede.png"
+          }
+        },
+        "image_WBrBVP": {
+          "type": "image",
+          "settings": {
+            "image_upload": "shopify://shop_images/950d12142c03c205d027fdbe85a37ede.png"
+          }
+        },
+        "image_TaA9jK": {
+          "type": "image",
+          "settings": {
+            "image_upload": "shopify://shop_images/LA_Weekly_logo_1.png"
+          }
+        },
+        "image_Dkc9cK": {
+          "type": "image",
+          "settings": {
+            "image_upload": "shopify://shop_images/Rolling_Stone_logo_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "image_D8nHBM",
+        "image_NgrVQD",
+        "image_hUngtN",
+        "image_WBrBVP",
+        "image_TaA9jK",
+        "image_Dkc9cK"
+      ],
+      "settings": {}
+    },
+    "costum_coloum_krAYdG": {
+      "type": "costum-coloum",
+      "blocks": {
+        "column_cXDzP9": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Image.png",
+            "column_title": "Column Title",
+            "column_description": "This is a description for the column.",
+            "column_text_color": "#000000",
+            "column_text_size": 19,
+            "column_title_bold": "bold"
+          }
+        },
+        "column_prmpBQ": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Image_01.png",
+            "column_title": "Column Title",
+            "column_description": "This is a description for the column.",
+            "column_text_color": "#000000",
+            "column_text_size": 16,
+            "column_title_bold": "normal"
+          }
+        },
+        "column_Crm93b": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Image_01_2.png",
+            "column_title": "Column Title",
+            "column_description": "This is a description for the column.",
+            "column_text_color": "#000000",
+            "column_text_size": 16,
+            "column_title_bold": "normal"
+          }
+        },
+        "column_m3pPRy": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Image_01_3.png",
+            "column_title": "Column Title",
+            "column_description": "This is a description for the column.",
+            "column_text_color": "#000000",
+            "column_text_size": 16,
+            "column_title_bold": "normal"
+          }
+        },
+        "column_QyWy8T": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Image_01_4.png",
+            "column_title": "Column Title",
+            "column_description": "This is a description for the column.",
+            "column_text_color": "#000000",
+            "column_text_size": 16,
+            "column_title_bold": "normal"
+          }
+        }
+      },
+      "block_order": [
+        "column_cXDzP9",
+        "column_prmpBQ",
+        "column_Crm93b",
+        "column_m3pPRy",
+        "column_QyWy8T"
+      ],
+      "settings": {
+        "title_tag": "h1",
+        "title_text": "Your Title Here",
+        "title_color": "#000000",
+        "title_size": 30,
+        "title_alignment": "center",
+        "paragraph_text": "Your paragraph hered.",
+        "paragraph_color": "#333333",
+        "paragraph_size": 16,
+        "paragraph_alignment": "center",
+        "column_count": 5,
+        "column_text_alignment": "center",
+        "column_image_border_radius": 15
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "custom_css": [],
+      "settings": {
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "<p>dsa</p>",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "clean_suplement_custom_pUnLym": {
+      "type": "clean-suplement-custom",
+      "settings": {}
+    },
+    "image_banner_ewxLqC": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_XLQab9": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Next Generation is Here",
+            "heading_size": "h1"
+          }
+        },
+        "text_AhQhMi": {
+          "type": "text",
+          "settings": {
+            "text": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I.",
+            "text_style": "body"
+          }
+        },
+        "buttons_ki8ULA": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_XLQab9",
+        "text_AhQhMi",
+        "buttons_ki8ULA"
+      ],
+      "custom_css": [],
+      "settings": {
+        "image": "shopify://shop_images/e4c9683702294b62e03a4063cd120030.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "desktop_content_position": "middle-left",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    }
+  },
+  "order": [
+    "banner_video_UXhgWR",
+    "text_carrousel_kV7e8R",
+    "recomendatios_custom_XDTDkt",
+    "costum_coloum_krAYdG",
+    "featured_collection",
+    "clean_suplement_custom_pUnLym",
+    "image_banner_ewxLqC"
+  ]
+}

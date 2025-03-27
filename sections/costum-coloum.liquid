@@ -1,0 +1,192 @@
+{% schema %}
+  {
+  "name": "Custom Section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title Tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Title Text",
+      "default": "Your Title Here"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Size (px)",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_text",
+      "label": "Paragraph Text",
+      "default": "Your paragraph here."
+    },
+    {
+      "type": "color",
+      "id": "paragraph_color",
+      "label": "Paragraph Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "label": "Paragraph Size (px)",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "paragraph_alignment",
+      "label": "Paragraph Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "column_count",
+      "label": "Number of Columns",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "column_text_alignment",
+      "label": "Column Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "column_image_border_radius",
+      "label": "Column Image Border Radius (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "column_image",
+          "label": "Column Image"
+        },
+        {
+          "type": "text",
+          "id": "column_title",
+          "label": "Column Title",
+          "default": "Column Title"
+        },
+        {
+          "type": "textarea",
+          "id": "column_description",
+          "label": "Column Description",
+          "default": "This is a description for the column."
+        },
+        {
+          "type": "color",
+          "id": "column_text_color",
+          "label": "Column Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "column_text_size",
+          "label": "Column Text Size (px)",
+          "min": 12,
+          "max": 30,
+          "step": 1,
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "column_title_bold",
+          "label": "Column Title Font Weight",
+          "options": [
+            { "value": "normal", "label": "Regular" },
+            { "value": "bold", "label": "Bold" }
+          ],
+          "default": "normal"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Section"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-section">
+  <{{ section.settings.title_tag }} class="section-title" style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px; text-align: {{ section.settings.title_alignment }};">
+    {{ section.settings.title_text }}
+  </{{ section.settings.title_tag }}>
+  <p class="section-paragraph" style="color: {{ section.settings.paragraph_color }}; font-size: {{ section.settings.paragraph_size }}px; text-align: {{ section.settings.paragraph_alignment }};">
+    {{ section.settings.paragraph_text }}
+  </p>
+
+  <div class="columns" style="display: grid; grid-template-columns: repeat({{ section.settings.column_count }}, 1fr); gap: 20px;">
+    {% for block in section.blocks %}
+      <div class="column" style="text-align: {{ section.settings.column_text_alignment }};">
+        {% if block.settings.column_image %}
+          <img src="{{ block.settings.column_image | img_url: 'medium' }}" alt="{{ block.settings.column_title }}" class="column-image" style="width: 100%; height: auto; border-radius: {{ section.settings.column_image_border_radius }}px; object-fit: cover;" />
+        {% endif %}
+        <h2 class="column-title" style="color: {{ block.settings.column_text_color }}; font-size: {{ block.settings.column_text_size }}px; font-weight: {{ block.settings.column_title_bold }};">
+          {{ block.settings.column_title }}
+        </h2>
+        <p class="column-description" style="color: {{ block.settings.column_text_color }}; font-size: {{ block.settings.column_text_size }}px;">
+          {{ block.settings.column_description }}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+</div>

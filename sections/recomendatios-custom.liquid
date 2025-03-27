@@ -1,0 +1,100 @@
+{% schema %}
+{
+  "name": "Recommendations Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Recommendation Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Upload Image",
+          "id": "image_upload"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recommendations section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="recommendations-section" style="background-color: rgba(246, 246, 245, 1); height: 120px; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+  <div class="text-container">
+    <p class="recommendations-text">#1 Doctor Recommended</p>
+  </div>
+  
+  <!-- Divider -->
+  <hr class="vertical-divider" />
+  
+  <!-- Image Block Section -->
+  <div class="image-block-section" style="display: flex; flex-direction: row; gap: 20px; justify-content: space-evenly; flex-wrap: wrap;">
+    {% for block in section.blocks %}
+      {% if block.settings.image_upload %}
+        <div class="image-container">
+          <img src="{{ block.settings.image_upload | img_url: 'medium' }}" alt="Recommendation Image" class="recommendation-image" />
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .recommendations-section {
+    display: flex;
+    flex-direction: row; /* Main layout is in a row */
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+  }
+
+  .text-container {
+    background-color: rgba(0, 0, 0, 1); /* Black background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding around the text */
+    margin-right: 20px; /* Space between text and the divider */
+  }
+
+  .recommendations-text {
+    color: white; /* Text color */
+    font-size: 14px; /* Font size */
+    margin: 0; /* Remove any default margin */
+  }
+
+  .vertical-divider {
+    border: none;
+    border-left: 2px solid #000; /* Black vertical line */
+    height: 50px; /* Height of the vertical line */
+    margin-left: 20px; /* Space before the divider */
+  }
+
+  .image-block-section {
+    display: flex;
+    flex-direction: row; /* Flex row for images */
+    justify-content: space-evenly; /* Evenly space the image divs */
+    gap: 20px;
+    flex-wrap: wrap; /* Allow images to wrap to the next row if needed */
+    flex-grow: 1; /* Allow this section to grow and fill available space */
+  }
+
+  .image-container {
+    width: 120px; /* Container width */
+    height: 40px; /* Container height */
+    border-radius: 8px; /* Rounded corners */
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+    background-color: white; /* White background for the image container */
+    overflow: hidden;
+  }
+
+  .recommendation-image {
+    width: 70.42px; /* Image width */
+    height: 15.52px; /* Image height */
+  }
+</style>

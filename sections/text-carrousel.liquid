@@ -1,0 +1,94 @@
+{% schema %}
+{
+  "name": "Text Carousel Section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Text 1",
+      "id": "text_1",
+      "default": "First Recommendation"
+    },
+    {
+      "type": "text",
+      "label": "Text 2",
+      "id": "text_2",
+      "default": "Second Recommendation"
+    },
+    {
+      "type": "text",
+      "label": "Text 3",
+      "id": "text_3",
+      "default": "Third Recommendation"
+    },
+    {
+      "type": "text",
+      "label": "Text 4",
+      "id": "text_4",
+      "default": "Fourth Recommendation"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="text-carousel-section">
+  <div class="text-carousel-wrapper">
+    <div class="text-carousel">
+      <span class="carousel-text">{{ section.settings.text_1 }}</span>
+      <span class="carousel-text">{{ section.settings.text_2 }}</span>
+      <span class="carousel-text">{{ section.settings.text_3 }}</span>
+      <span class="carousel-text">{{ section.settings.text_4 }}</span>
+      <!-- Duplicating texts for smooth infinite scrolling -->
+      <span class="carousel-text">{{ section.settings.text_1 }}</span>
+      <span class="carousel-text">{{ section.settings.text_2 }}</span>
+      <span class="carousel-text">{{ section.settings.text_3 }}</span>
+      <span class="carousel-text">{{ section.settings.text_4 }}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .text-carousel-section {
+    position: relative; /* Ensures relative positioning as requested */
+    overflow: hidden; /* Hides text that moves out of the section */
+    width: 100%;
+    background-color: #f6f6f5;
+    padding: 20px 0;
+  }
+
+  .text-carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap; /* Keeps text in a single line */
+  }
+
+  .text-carousel {
+    display: inline-flex;
+    gap: 50px; /* Space between text items */
+    white-space: nowrap;
+    animation: scrollText 10s linear infinite;
+  }
+
+  .carousel-text {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+
+  @keyframes scrollText {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+</style>
