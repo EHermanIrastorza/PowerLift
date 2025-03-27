@@ -1,132 +1,163 @@
+{% schema %}
 {
-    "type": "heading",
-    "name": "Heading",
-    "settings": [
+  "name": "Custom Image Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_alt_text",
+      "label": "Alt Text",
+      "default": "Banner Image"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "center-left", "label": "Center Left" },
+        { "value": "center-center", "label": "Center Center" },
+        { "value": "center-right", "label": "Center Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "center-center"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
         {
-            "type": "select",
-            "id": "heading_tag",
-            "label": "Heading Tag",
-            "options": [
-                { "value": "h1", "label": "H1" },
-                { "value": "h2", "label": "H2" },
-                { "value": "h3", "label": "H3" },
-                { "value": "h4", "label": "H4" }
-            ],
-            "default": "h2"
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading Tag",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" }
+          ],
+          "default": "h2"
         },
         {
-            "type": "text",
-            "id": "heading_text",
-            "label": "Heading Text",
-            "default": "Your Title Here"
+          "type": "text",
+          "id": "heading_text",
+          "label": "Heading Text",
+          "default": "Your Title Here"
         },
         {
-            "type": "range",
-            "id": "heading_font_size",
-            "label": "Font Size (px)",
-            "min": 12,
-            "max": 72,
-            "options": [
-                { "value": "top-left", "label": "Top Left" },
-                { "value": "top-center", "label": "Top Center" },
-                { "value": "top-right", "label": "Top Right" },
-                { "value": "center-left", "label": "Center Left" },
-                { "value": "center-center", "label": "Center Center" },
-                { "value": "center-right", "label": "Center Right" },
-                { "value": "bottom-left", "label": "Bottom Left" },
-                { "value": "bottom-center", "label": "Bottom Center" },
-                { "value": "bottom-right", "label": "Bottom Right" }
-            ],
-            "default": "center-center"
+          "type": "range",
+          "id": "heading_font_size",
+          "label": "Font Size (px)",
+          "min": 12,
+          "max": 72,
+          "step": 1,
+          "default": 24
         },
         {
-            "type": "select",
-            "id": "content_alignment",
-            "label": "Content Alignment",
-            "options": [
-                { "value": "left", "label": "Left" },
-                { "value": "center", "label": "Center" },
-                { "value": "right", "label": "Right" }
-            ],
-            "default": "center"
+          "type": "select",
+          "id": "heading_style",
+          "label": "Font Style",
+          "options": [
+            { "value": "normal", "label": "Regular" },
+            { "value": "bold", "label": "Bold" },
+            { "value": "italic", "label": "Italic" }
+          ],
+          "default": "normal"
         }
-    ],
-    "blocks": [
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "settings": [
         {
-            "type": "heading",
-            "name": "Heading",
-            "settings": [
-                {
-                    "type": "select",
-                    "id": "heading_tag",
-                    "label": "Heading Tag",
-                    "options": [
-                        { "value": "h1", "label": "H1" },
-                        { "value": "h2", "label": "H2" },
-                        { "value": "h3", "label": "H3" },
-                        { "value": "h4", "label": "H4" }
-                    ],
-                    "default": "h2"
-                },
-                {
-                    "type": "text",
-                    "id": "heading_text",
-                    "label": "Heading Text",
-                    "default": "Your Title Here"
-                }
-            ]
+          "type": "textarea",
+          "id": "paragraph_text",
+          "label": "Paragraph Text",
+          "default": "Your description here."
         },
         {
-            "type": "paragraph",
-            "name": "Paragraph",
-            "settings": [
-                {
-                    "type": "textarea",
-                    "id": "paragraph_text",
-                    "label": "Paragraph Text",
-                    "default": "Your description here."
-                }
-            ]
+          "type": "range",
+          "id": "paragraph_font_size",
+          "label": "Font Size (px)",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "default": 16
         },
         {
-            "type": "buttons",
-            "name": "Buttons",
-            "settings": [
-                {
-                    "type": "text",
-                    "id": "button1_text",
-                    "label": "Button 1 Text",
-                    "default": "Learn More"
-                },
-                {
-                    "type": "url",
-                    "id": "button1_link",
-                    "label": "Button 1 Link"
-                },
-                {
-                    "type": "text",
-                    "id": "button2_text",
-                    "label": "Button 2 Text",
-                    "default": "Shop Now"
-                },
-                {
-                    "type": "url",
-                    "id": "button2_link",
-                    "label": "Button 2 Link"
-                }
-            ]
+          "type": "select",
+          "id": "paragraph_style",
+          "label": "Font Style",
+          "options": [
+            { "value": "normal", "label": "Regular" },
+            { "value": "bold", "label": "Bold" },
+            { "value": "italic", "label": "Italic" }
+          ],
+          "default": "normal"
         }
-    ],
-    "presets": [
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "settings": [
         {
-            "name": "Custom Image Banner",
-            "blocks": [
-                { "type": "heading" },
-                { "type": "paragraph" },
-                { "type": "buttons" }
-            ]
+          "type": "text",
+          "id": "button1_text",
+          "label": "Button 1 Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "button1_link",
+          "label": "Button 1 Link"
+        },
+        {
+          "type": "text",
+          "id": "button2_text",
+          "label": "Button 2 Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button2_link",
+          "label": "Button 2 Link"
         }
-    ]
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Banner",
+      "blocks": [
+        { "type": "heading" },
+        { "type": "paragraph" },
+        { "type": "buttons" }
+      ]
+    }
+  ]
 }
 {% endschema %}
 
