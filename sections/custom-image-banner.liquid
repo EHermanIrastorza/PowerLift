@@ -1,0 +1,42 @@
+{% schema %}
+{
+  "name": "Custom Image Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_alt_text",
+      "label": "Alt Text",
+      "default": "Banner Image"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner Height (px)",
+      "min": 100,
+      "max": 1000,
+      "step": 10,
+      "default": 400
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-image-banner">
+  {% if section.settings.banner_image %}
+    <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="{{ section.settings.banner_alt_text }}" style="width: 100%; height: {{ section.settings.banner_height }}px; object-fit: cover;">
+  {% else %}
+    <div style="width: 100%; height: {{ section.settings.banner_height }}px; background-color: #f4f4f4; display: flex; align-items: center; justify-content: center; color: #999;">
+      No image selected
+    </div>
+  {% endif %}
+</div>
