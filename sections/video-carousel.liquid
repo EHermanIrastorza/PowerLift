@@ -54,6 +54,11 @@
           "type": "url",
           "id": "video_url",
           "label": "MP4 Video URL"
+        },
+        {
+          "type": "file",
+          "id": "video_file",
+          "label": "Upload Video File"
         }
       ]
     }
@@ -76,7 +81,11 @@
     {% for block in section.blocks %}
       <div class="video-slide" {{ block.shopify_attributes }}>
         <video controls>
-          <source src="{{ block.settings.video_url }}" type="video/mp4">
+          {% if block.settings.video_file != blank %}
+            <source src="{{ block.settings.video_file | file_url }}" type="video/mp4">
+          {% elsif block.settings.video_url != blank %}
+            <source src="{{ block.settings.video_url }}" type="video/mp4">
+          {% endif %}
           Your browser does not support the video tag.
         </video>
       </div>

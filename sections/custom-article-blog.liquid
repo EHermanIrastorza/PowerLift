@@ -1,0 +1,118 @@
+{% schema %}
+{
+  "name": "Custom Article Blog",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title Tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Font Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "This is the subtext"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "main_article",
+      "name": "Main Article",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "main_image",
+          "label": "Main Image"
+        },
+        {
+          "type": "text",
+          "id": "main_title",
+          "label": "Title",
+          "default": "Main Article Title"
+        },
+        {
+          "type": "text",
+          "id": "main_subtitle",
+          "label": "Subtitle",
+          "default": "Subtitle here"
+        }
+      ]
+    },
+    {
+      "type": "news",
+      "name": "News",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "news_image",
+          "label": "News Image"
+        },
+        {
+          "type": "text",
+          "id": "news_title",
+          "label": "Title",
+          "default": "News Title"
+        },
+        {
+          "type": "text",
+          "id": "news_subtext",
+          "label": "Subtext",
+          "default": "News subtext here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Article Blog",
+      "blocks": [
+        { "type": "main_article" },
+        { "type": "news" },
+        { "type": "news" }
+      ]
+    }
+  ]
+}
+{% endschema %}

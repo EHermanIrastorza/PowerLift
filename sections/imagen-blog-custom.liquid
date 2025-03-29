@@ -1,0 +1,108 @@
+{% schema %}
+{
+  "name": "Imagen blog",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Imagen",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Subir imagen"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_text",
+          "label": "Texto del banner",
+          "default": "Sigue nuestro contenido en Instagram"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_logo",
+          "label": "Logo del banner"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto del botón",
+          "default": "Follow Us on Instagram"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Imagen blog",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .imagen-blog {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 15px;
+    width: max-content;
+  }
+  .imagen-blog img {
+    width: 245px;
+    height: 245px;
+    object-fit: cover;
+  }
+  .imagen-blog .banner {
+    grid-column: span 2;
+    width: 500px;
+    height: 245px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 20px;
+  }
+  .imagen-blog .banner img {
+    max-width: 100px;
+    margin-bottom: 10px;
+  }
+  .imagen-blog .banner p {
+    margin-bottom: 10px;
+  }
+  .imagen-blog .banner button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+
+<div class="imagen-blog">
+  {% for block in section.blocks %}
+    {% if block.type == "banner" %}
+      <div class="banner">
+        {% if block.settings.banner_logo %}
+          <img src="{{ block.settings.banner_logo | img_url: '100x100' }}" width="", height="" alt="Logo">
+        {% endif %}
+        <p>{{ block.settings.banner_text }}</p>
+        <button>{{ block.settings.button_text }}</button>
+      </div>
+    {% elsif block.settings.image %}
+      <img src="{{ block.settings.image | img_url: '245x245' }}" width="", height="" alt="Imagen del blog">
+    {% endif %}
+  {% endfor %}
+</div>
