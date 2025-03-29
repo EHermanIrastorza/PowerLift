@@ -1,0 +1,86 @@
+{% schema %}
+{
+  "name": "Video Carousel",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title Tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "bold",
+      "label": "Bold"
+    },
+    {
+      "type": "checkbox",
+      "id": "italic",
+      "label": "Italic"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video Block",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "MP4 Video URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Carousel",
+      "blocks": [
+        { "type": "video" },
+        { "type": "video" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="video-carousel">
+  <button class="prev-button">&#10094;</button>
+  <div class="video-container">
+    {% for block in section.blocks %}
+      <div class="video-slide" {{ block.shopify_attributes }}>
+        <video controls>
+          <source src="{{ block.settings.video_url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="next-button">&#10095;</button>
+</div>
