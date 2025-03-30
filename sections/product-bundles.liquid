@@ -1,0 +1,147 @@
+{% schema %}
+{
+  "name": "Product Bundle Collection",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "selected_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom Title",
+      "default": "Our Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_text",
+      "label": "Custom Text",
+      "default": "Explore our hand-picked selection of products."
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title Tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "title_align",
+      "label": "Title Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products Per Page",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "product_filter",
+      "label": "Filter by Category",
+      "options": [
+        { "value": "sleep", "label": "Sleep" },
+        { "value": "cognitive_function", "label": "Cognitive Function" },
+        { "value": "foundational_health", "label": "Foundational Health" },
+        { "value": "athletic_performance", "label": "Athletic Performance" },
+        { "value": "hormone_support", "label": "Hormone Support" }
+      ],
+      "default": "sleep"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Bundle Collection",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="product-page">
+  <!-- Custom Title and Text -->
+  <{{ section.settings.title_tag }} 
+    style="font-size: {{ section.settings.title_size }}px; text-align: {{ section.settings.title_align }};">
+    {{ section.settings.custom_title }}
+  </{{ section.settings.title_tag }}>
+  <p>{{ section.settings.custom_text }}</p>
+
+  <!-- Product Details Section -->
+  <div class="product-details">
+    <h2>{{ product.title }}</h2>
+    <div class="product-description">
+      {{ product.description }}
+    </div>
+    <div class="product-price">
+      <span class="price">{{ product.price | money }}</span>
+    </div>
+  </div>
+
+  <!-- Collection Products Display with Pagination -->
+  <div class="collection-products">
+    <h3>Products from Selected Collection</h3>
+    {% if section.settings.selected_collection %}
+      {% assign collection = collections[section.settings.selected_collection] %}
+      {% if collection and collection.products.size > 0 %}
+        {% paginate collection.products by section.settings.products_per_page %}
+          <ol>
+            {% for product in collection.products %}
+              <li>
+                <!-- Render Product Image -->
+                <div class="product-image">
+                  <img src="{{ product.featured_image | img_url: 'medium' }}" width="" height="" alt="{{ product.title }}">
+                </div>
+                
+                <!-- Render Product Title and Price -->
+                <h4>{{ product.title }}</h4>
+                <p>{{ product.price | money }}</p>
+              </li>
+            {% endfor %}
+          </ol>
+          <div class="pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}">Previous</a>
+            {% endif %}
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}">Next</a>
+            {% endif %}
+          </div>
+        {% endpaginate %}
+      {% else %}
+        <p>No products found in this collection.</p>
+      {% endif %}
+    {% else %}
+      <p>Please select a collection in the theme settings.</p>
+    {% endif %}
+  </div>
+</div>
