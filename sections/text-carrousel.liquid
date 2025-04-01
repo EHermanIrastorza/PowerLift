@@ -1,6 +1,10 @@
 {% schema %}
 {
   "name": "Text Carousel Section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "text",
@@ -29,7 +33,7 @@
   ],
   "presets": [
     {
-      "name": "Default",
+      "name": "text carousel",
       "category": "Custom"
     }
   ]

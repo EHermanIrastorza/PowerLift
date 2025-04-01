@@ -1,0 +1,156 @@
+{% schema %}
+{
+  "name": "Health and Fitness",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title Tag",
+      "options": [
+        {"value": "h1", "label": "H1"},
+        {"value": "h2", "label": "H2"},
+        {"value": "h3", "label": "H3"},
+        {"value": "h4", "label": "H4"}
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Health and Fitness"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Your health journey starts here."
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Font Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Block Title",
+          "default": "Block Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_logo",
+          "label": "Upload Logo"
+        },
+        {
+          "type": "textarea",
+          "id": "block_subtext",
+          "label": "Block Subtext",
+          "default": "This is a description."
+        },
+        {
+          "type": "select",
+          "id": "block_text_alignment",
+          "label": "Block Text Alignment",
+          "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "block_font_size",
+          "label": "Block Font Size",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "block_font_style",
+          "label": "Block Font Style",
+          "options": [
+            {"value": "normal", "label": "Normal"},
+            {"value": "bold", "label": "Bold"},
+            {"value": "italic", "label": "Italic"}
+          ],
+          "default": "normal"
+        },
+        {
+          "type": "color",
+          "id": "block_font_color",
+          "label": "Block Font Color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Health and Fitness",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="health-fitness-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.font_color }}; font-size: {{ section.settings.font_size }}px;">
+  <p>{{ section.settings.subtitle }}</p>
+  <{{ section.settings.title_tag }}>{{ section.settings.title }}</{{ section.settings.title_tag }}>
+  <div class="blocks-container" style="display: flex; gap: 20px;">
+    {% for block in section.blocks %}
+      <div class="block-item" style="flex: 1; text-align: {{ block.settings.block_text_alignment }}; color: {{ block.settings.block_font_color }}; font-size: {{ block.settings.block_font_size }}px; font-style: {{ block.settings.block_font_style }};">
+        {% if block.settings.block_logo %}
+          <img src="{{ block.settings.block_logo | img_url: 'medium' }}" width="" height="" alt="{{ block.settings.block_title }}">
+        {% endif %}
+        <h3>{{ block.settings.block_title }}</h3>
+        <p>{{ block.settings.block_subtext }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% style %}
+.health-fitness-section {
+  padding: 40px;
+}
+.blocks-container {
+  display: flex;
+  justify-content: center;
+}
+.block-item {
+  text-align: center;
+}
+{% endstyle %}

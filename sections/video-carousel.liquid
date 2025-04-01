@@ -51,14 +51,15 @@
       "name": "Video Block",
       "settings": [
         {
-          "type": "url",
-          "id": "video_url",
-          "label": "MP4 Video URL"
+          "type": "file",
+          "id": "video_upload",
+          "label": "Upload MP4 Video"
         },
         {
-          "type": "file",
-          "id": "video_file",
-          "label": "Upload Video File"
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL",
+          "default": ""
         }
       ]
     }
@@ -80,14 +81,19 @@
   <div class="video-container">
     {% for block in section.blocks %}
       <div class="video-slide" {{ block.shopify_attributes }}>
-        <video controls>
-          {% if block.settings.video_file != blank %}
-            <source src="{{ block.settings.video_file | file_url }}" type="video/mp4">
-          {% elsif block.settings.video_url != blank %}
+        {% if block.settings.video_upload %}
+          <video controls>
+            <source src="{{ block.settings.video_upload | file_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% elsif block.settings.video_url %}
+          <video controls>
             <source src="{{ block.settings.video_url }}" type="video/mp4">
-          {% endif %}
-          Your browser does not support the video tag.
-        </video>
+            Your browser does not support the video tag.
+          </video>
+        {% else %}
+          <div class="placeholder">Video Placeholder</div>
+        {% endif %}
       </div>
     {% endfor %}
   </div>

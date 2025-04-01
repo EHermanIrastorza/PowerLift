@@ -1,6 +1,10 @@
 {% schema %}
 {
   "name": "Product Page Collection",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "collection",
@@ -10,7 +14,7 @@
   ],
   "presets": [
     {
-      "name": "Default",
+      "name": "product page collection",
       "category": "Product"
     }
   ]
