@@ -1,0 +1,86 @@
+{
+  "article": [],
+  "blog": [],
+  "collection": [],
+  "company": [],
+  "company_location": [],
+  "location": [],
+  "market": [],
+  "order": [],
+  "page": [],
+  "product": [
+    {
+      "key": "binding_mount",
+      "namespace": "test_data",
+      "name": "Snowboard binding mount",
+      "description": "The type of binding mount used on the snowboard",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "snowboard_length",
+      "namespace": "test_data",
+      "name": "Snowboard length",
+      "description": "The length of the snowboard",
+      "type": {
+        "name": "dimension",
+        "category": "MEASUREMENT"
+      }
+    },
+    {
+      "key": "age-group",
+      "namespace": "shopify",
+      "name": "Grupo de edad",
+      "description": "Define el rango de edad objetivo de un producto, como los adultos o los niños.",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "dietary-preferences",
+      "namespace": "shopify",
+      "name": "Preferencias alimentarias",
+      "description": "Ayuda a identificar productos adecuados para dietas específicas, por ejemplo, veganas y sin frutos secos.",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "detailed-ingredients",
+      "namespace": "shopify",
+      "name": "Ingredientes detallados",
+      "description": "Enumera componentes específicos que se usan en salud y belleza, por ejemplo, la vitamina C o los probióticos.",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product-form",
+      "namespace": "shopify",
+      "name": "Forma del producto",
+      "description": "Define el formato o presentación de un producto de salud y belleza, como, por ejemplo, loción o suero.",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
+  "variant": [],
+  "shop": [
+    {
+      "key": "alpine_sports",
+      "namespace": "test_data",
+      "name": "Alpine sport types",
+      "description": "The set of alpine sports that this sport shop specializes in",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    }
+  ]
+}

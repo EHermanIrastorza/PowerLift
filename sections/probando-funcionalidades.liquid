@@ -1,0 +1,26 @@
+{% schema %}
+{
+  "name": "Probando la funcionalidad",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Default Title"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Default subtext."
+    }
+  ]
+}
+{% endschema %}
+
+<section class="section">
+  <div class="container">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtext }}</p>
+  </div>
+</section>
