@@ -1,0 +1,108 @@
+{% schema %}
+{
+  "name": "Customize your product",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title Tag",
+      "options": [
+        {"value": "h1", "label": "H1"},
+        {"value": "h2", "label": "H2"},
+        {"value": "h3", "label": "H3"},
+        {"value": "h4", "label": "H4"}
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Title Text",
+      "default": "Customize Your Product"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_text",
+      "label": "Subtitle Text",
+      "default": "Select your options below"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle Size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "product",
+      "id": "selected_product",
+      "label": "Select Product"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-product-container">
+  <p style="color: {{ section.settings.subtitle_color }}; font-size: {{ section.settings.subtitle_size }}px;">
+    {{ section.settings.subtitle_text }}
+  </p>
+  <{{ section.settings.title_tag }} style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px;">
+    {{ section.settings.title_text }}
+  </{{ section.settings.title_tag }}>
+  
+  <div class="custom-product-layout">
+    <div class="product-selection">
+      {% if section.settings.selected_product %}
+        <img src="{{ section.settings.selected_product.featured_image | img_url: 'medium' }}" width="" height="" alt="{{ section.settings.selected_product.title }}">
+      {% else %}
+        <div class="placeholder-box">Pick your product</div>
+      {% endif %}
+    </div>
+    <div class="product-options">
+      <div class="option-group">
+        <h4>Option Title</h4>
+        <div class="selectors">
+          <select><option>Option 1</option></select>
+          <select><option>Option 2</option></select>
+          <select><option>Option 3</option></select>
+        </div>
+      </div>
+      <div class="info-group">
+        <h4>Information</h4>
+        <div class="columns">
+          <p>Detail 1</p>
+          <p>Detail 2</p>
+          <p>Detail 3</p>
+        </div>
+      </div>
+      <button class="custom-button">Customize this blend</button>
+    </div>
+  </div>
+</div>
