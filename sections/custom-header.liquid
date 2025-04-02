@@ -9,6 +9,13 @@
       </a>
     </div>
     
+    <!-- Search Icon & Bar -->
+    <div class="navbar-search">
+      <button class="search-toggle" onclick="toggleSearch()">🔍</button>
+      <input type="text" id="search-bar" class="search-bar" placeholder="Search products..." oninput="searchProducts()">
+      <ul id="search-results" class="search-results"></ul>
+    </div>
+    
     <!-- Navigation -->
     <nav class="navbar-navigation">
       <ul class="navbar-menu">
@@ -17,6 +24,23 @@
         {% endfor %}
       </ul>
     </nav>
+
+    <!-- Quiz Button -->
+    <div class="navbar-button">
+      <a href="#" class="quiz-button">Take the Quiz</a>
+    </div>
+
+    <!-- User Button -->
+    <div class="navbar-user">
+      <button class="user-button">👤</button>
+    </div>
+
+    <!-- Cart Button -->
+    <div class="navbar-cart">
+      <a href="{{ routes.cart_url }}" class="cart-button">
+        🛒 <span id="cart-count">0</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -60,30 +84,137 @@
       max-height: none;
       max-width: none;
   }
+  .navbar-search {
+      position: relative;
+  }
+  .search-bar {
+      display: none;
+      width: 200px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+  .search-results {
+      position: absolute;
+      background: white;
+      list-style: none;
+      padding: 0;
+      margin: 5px 0 0;
+      width: 100%;
+      display: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+  .search-results li {
+      padding: 5px;
+      cursor: pointer;
+  }
+  .navbar-button {
+      margin-left: 20px;
+  }
+  .quiz-button {
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+  }
+  .navbar-user {
+      margin-left: 15px;
+  }
+  .user-button {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+  }
+  .navbar-cart {
+      margin-left: 15px;
+  }
+  .cart-button {
+      text-decoration: none;
+      font-size: 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+  }
+  #cart-count {
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      border-radius: 50%;
+      padding: 4px 7px;
+      position: absolute;
+      top: -5px;
+      right: -10px;
+  }
 </style>
+
+<script>
+  function toggleSearch() {
+      const searchBar = document.getElementById('search-bar');
+      searchBar.style.display = searchBar.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function searchProducts() {
+      let query = document.getElementById('search-bar').value.toLowerCase();
+      let resultsContainer = document.getElementById('search-results');
+      resultsContainer.innerHTML = '';
+      
+      fetch('/search/suggest.json?q=' + query + '&resources[type]=product')
+          .then(response => response.json())
+          .then(data => {
+              let results = data.resources.results.products;
+              if (results.length > 0) {
+                  resultsContainer.style.display = 'block';
+                  results.forEach(product => {
+                      let li = document.createElement('li');
+                      li.textContent = product.title;
+                      li.onclick = () => window.location.href = product.url;
+                      resultsContainer.appendChild(li);
+                  });
+              } else {
+                  resultsContainer.style.display = 'none';
+              }
+          });
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    function updateCartCount() {
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('cart-count').innerText = data.item_count;
+        });
+    }
+
+    updateCartCount();
+    document.addEventListener("cart:updated", updateCartCount);
+  });
+</script>
 
 {% schema %}
 {
-"name": "Custom Navbar",
-"tag": "header",
-"class": "header",
-"settings": [
-  {
-    "type": "image_picker",
-    "id": "logo",
-    "label": "Logo"
-  },
-  {
-    "type": "link_list",
-    "id": "navigation",
-    "label": "Navigation Menu"
-  }
-],
-"presets": [
-  {
-    "name": "Custom Navbar",
-    "category": "Header"
-  }
-]
+  "name": "Custom Navbar",
+  "tag": "header",
+  "class": "header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "navigation",
+      "label": "Navigation Menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Navbar",
+      "category": "Header"
+    }
+  ]
 }
 {% endschema %}
