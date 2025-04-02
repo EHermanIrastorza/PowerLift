@@ -1,0 +1,44 @@
+<section class="custom-navbar">
+    <div class="navbar-container">
+      <!-- Logo -->
+      <div class="navbar-logo">
+        <a href="{{ shop.url }}">
+          {% if settings.logo != blank %}
+            <img src="{{ settings.logo | image_url }}" width="120" height="40" alt="{{ shop.name }}" class="navbar-logo-img" />
+          {% endif %}
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    .custom-navbar {
+        width: 1570px;
+        height: 70px;
+        position: absolute;
+        top: 20px;
+        left: 40px;
+        background-color: white;
+        border-radius: 8px;
+    }
+  </style>
+  
+  {% schema %}
+  {
+    "name": "Custom Navbar",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Navbar",
+        "category": "Header"
+      }
+    ]
+  }
+  {% endschema %}
+  
