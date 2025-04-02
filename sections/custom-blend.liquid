@@ -64,55 +64,265 @@
       "type": "product",
       "id": "selected_product",
       "label": "Select Product"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Customizer",
+      "category": "Product"
     }
   ]
 }
 {% endschema %}
 
+<style>
+  .custom-product-container {
+    padding: 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .custom-product-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .product-selection {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .product-selection img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .placeholder-box {
+    background: #f4f4f4;
+    border: 1px dashed #ccc;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #666;
+  }
+  
+  .product-options {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .option-group, .info-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .option-group h4, .info-group h4 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .selectors {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .selectors select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .custom-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+  }
+  
+  .custom-button:hover {
+    opacity: 0.9;
+  }
+  
+  .variant-selector {
+    margin-bottom: 1rem;
+  }
+  
+  .variant-selector label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+  }
+  
+  .product-price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    .custom-product-layout {
+      flex-direction: column;
+    }
+  }
+</style>
+
 <div class="custom-product-container">
+  <!-- Title -->
+  <{{ section.settings.title_tag }} style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px;">
+    {{ section.settings.title_text }}
+  </{{ section.settings.title_tag }}>
+  
   <!-- Subtitle -->
   <p style="color: {{ section.settings.subtitle_color }}; font-size: {{ section.settings.subtitle_size }}px;">
     {{ section.settings.subtitle_text }}
   </p>
 
-  <!-- Title -->
-  <{{ section.settings.title_tag }} style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px;">
-    {{ section.settings.title_text }}
-  </{{ section.settings.title_tag }}>
-
   <div class="custom-product-layout">
     <div class="product-selection">
-      {% assign selected_product = all_products[section.settings.selected_product] %}
-      {% if selected_product and selected_product.featured_image %}
-        <img src="{{ selected_product.featured_image | img_url: 'medium' }}" width="" height="" alt="{{ selected_product.title }}">
+      {% assign product = all_products[section.settings.selected_product] %}
+      {% if product != blank and product.featured_image %}
+        <img src="{{ product.featured_image | img_url: 'medium' }}" height="" width="" alt="{{ product.title }}">
       {% else %}
-        <div class="placeholder-box">Pick your product</div>
+        <div class="placeholder-box">Please select a product in the theme editor</div>
       {% endif %}
     </div>
 
     <div class="product-options">
-      <!-- Selectors -->
-      <div class="option-group">
-        <h4>Option Title</h4>
-        <div class="selectors">
-          <select><option>Option 1</option></select>
-          <select><option>Option 2</option></select>
-          <select><option>Option 3</option></select>
+      {% if product != blank %}
+        <h3>{{ product.title }}</h3>
+        
+        <div class="product-price">
+          {{ product.price | money }}
         </div>
-      </div>
+        
+        <!-- Dynamic Variant Selectors -->
+        <form method="post" action="/cart/add" id="product-form-{{ section.id }}">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="variant-selector">
+                <label for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                  {{ option.name }}
+                </label>
+                <select 
+                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                  class="product-variant-select"
+                  name="options[{{ option.name | escape }}]"
+                  data-option-index="{{ forloop.index0 }}"
+                >
+                  {% for value in option.values %}
+                    <option 
+                      value="{{ value | escape }}"
+                      {% if option.selected_value == value %}selected="selected"{% endif %}
+                    >
+                      {{ value }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          {% endunless %}
+          
+          <!-- Information -->
+          <div class="info-group">
+            <h4>Product Details</h4>
+            <div class="columns">
+              {% if product.description != blank %}
+                <div class="product-description">
+                  {{ product.description | strip_html | truncatewords: 30 }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
 
-      <!-- Information -->
-      <div class="info-group">
-        <h4>Information</h4>
-        <div class="columns">
-          <p>Detail 1</p>
-          <p>Detail 2</p>
-          <p>Detail 3</p>
+          <!-- Button -->
+          <button 
+            type="submit"
+            class="custom-button"
+            style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }};"
+          >
+            Add to cart
+          </button>
+        </form>
+      {% else %}
+        <div class="placeholder-message">
+          <p>Please select a product in the theme editor to display customization options.</p>
         </div>
-      </div>
-
-      <!-- Button -->
-      <button class="custom-button">Customize this blend</button>
+      {% endif %}
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('product-form-{{ section.id }}');
+    const variantSelects = form.querySelectorAll('.product-variant-select');
+    
+    // Handle variant selection changes
+    variantSelects.forEach(select => {
+      select.addEventListener('change', function() {
+        updateVariantId();
+      });
+    });
+    
+    function updateVariantId() {
+      // Get the selected options
+      const selectedOptions = [];
+      variantSelects.forEach(select => {
+        selectedOptions.push(select.value);
+      });
+      
+      // Find the matching variant
+      const variants = {{ product.variants | json }};
+      const matchingVariant = variants.find(variant => {
+        return variant.options.every((option, index) => {
+          return option === selectedOptions[index];
+        });
+      });
+      
+      // Update the variant ID in the form
+      if (matchingVariant) {
+        form.querySelector('input[name="id"]').value = matchingVariant.id;
+        
+        // Update price if needed
+        const priceElement = document.querySelector('.product-price');
+        if (priceElement) {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: '{{ shop.currency }}'
+          });
+          priceElement.textContent = formatter.format(matchingVariant.price / 100);
+        }
+      }
+    }
+  });
+</script>
