@@ -1,44 +1,89 @@
 <section class="custom-navbar">
-    <div class="navbar-container">
-      <!-- Logo -->
-      <div class="navbar-logo">
-        <a href="{{ shop.url }}">
-          {% if settings.logo != blank %}
-            <img src="{{ settings.logo | image_url }}" width="120" height="40" alt="{{ shop.name }}" class="navbar-logo-img" />
-          {% endif %}
-        </a>
-      </div>
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="navbar-logo">
+      <a href="{{ shop.url }}">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | image_url }}" width="120" height="40" alt="{{ shop.name }}" class="navbar-logo-img" />
+        {% endif %}
+      </a>
     </div>
-  </section>
-  
-  <style>
-    .custom-navbar {
-        width: 1570px;
-        height: 70px;
-        position: absolute;
-        top: 20px;
-        left: 40px;
-        background-color: white;
-        border-radius: 8px;
-    }
-  </style>
-  
-  {% schema %}
+    
+    <!-- Navigation -->
+    <nav class="navbar-navigation">
+      <ul class="navbar-menu">
+        {% for link in section.settings.navigation.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<style>
+  .custom-navbar {
+      width: 1570px;
+      height: 70px;
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      background-color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+  }
+  .navbar-container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+  }
+  .navbar-menu {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 20px;
+  }
+  .navbar-menu li a {
+      text-decoration: none;
+      color: inherit;
+      font-size: 16px;
+  }
+  .navbar-logo-img {
+      width: auto;
+      height: auto;
+      max-height: none;
+      max-width: none;
+  }
+</style>
+
+{% schema %}
+{
+"name": "Custom Navbar",
+"tag": "header",
+"class": "header",
+"settings": [
+  {
+    "type": "image_picker",
+    "id": "logo",
+    "label": "Logo"
+  },
+  {
+    "type": "link_list",
+    "id": "navigation",
+    "label": "Navigation Menu"
+  }
+],
+"presets": [
   {
     "name": "Custom Navbar",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Custom Navbar",
-        "category": "Header"
-      }
-    ]
+    "category": "Header"
   }
-  {% endschema %}
-  
+]
+}
+{% endschema %}
