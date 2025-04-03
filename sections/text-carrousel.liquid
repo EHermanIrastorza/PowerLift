@@ -29,6 +29,11 @@
       "label": "Text 4",
       "id": "text_4",
       "default": "Fourth Recommendation"
+    },
+    {
+      "type": "image_picker",
+      "id": "separator_image",
+      "label": "Separator Image"
     }
   ],
   "presets": [
@@ -41,50 +46,67 @@
 {% endschema %}
 
 <section class="text-carousel-section">
-  <div class="text-carousel-wrapper">
-    <div class="text-carousel">
-      <span class="carousel-text">{{ section.settings.text_1 }}</span>
-      <span class="carousel-text">{{ section.settings.text_2 }}</span>
-      <span class="carousel-text">{{ section.settings.text_3 }}</span>
-      <span class="carousel-text">{{ section.settings.text_4 }}</span>
-      <!-- Duplicating texts for smooth infinite scrolling -->
-      <span class="carousel-text">{{ section.settings.text_1 }}</span>
-      <span class="carousel-text">{{ section.settings.text_2 }}</span>
-      <span class="carousel-text">{{ section.settings.text_3 }}</span>
-      <span class="carousel-text">{{ section.settings.text_4 }}</span>
-    </div>
+  <div class="text-carousel">
+    <span>{{ section.settings.text_1 }}</span>
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_2 }}</span>
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_3 }}</span>
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_4 }}</span>
+    <!-- Duplicating content for infinite scrolling -->
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_1 }}</span>
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_2 }}</span>
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_3 }}</span>
+    {% if section.settings.separator_image %}
+      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width=""  alt="Separator" class="separator-image">
+    {% endif %}
+    <span>{{ section.settings.text_4 }}</span>
   </div>
 </section>
 
 <style>
   .text-carousel-section {
-    position: relative; /* Ensures relative positioning as requested */
-    overflow: hidden; /* Hides text that moves out of the section */
-    width: 100%;
-    background-color: #f6f6f5;
-    padding: 20px 0;
-  }
-
-  .text-carousel-wrapper {
-    width: 100%;
+    position: relative;
     overflow: hidden;
-    white-space: nowrap; /* Keeps text in a single line */
+    width: 100%;
+    height: 50px; /* Fixed height */
+    background-color: black; /* Background black */
+    display: flex;
+    align-items: center; /* Center text vertically */
   }
 
   .text-carousel {
-    display: inline-flex;
-    gap: 50px; /* Space between text items */
+    display: flex;
+    gap: 16px; /* Space between text items */
     white-space: nowrap;
+    color: white; /* White text */
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%; /* Occupies full width */
+    justify-content: space-between; /* Ensures text spans across the whole width */
     animation: scrollText 10s linear infinite;
   }
 
-  .carousel-text {
-    font-size: 16px;
-    font-weight: bold;
-    background-color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    display: inline-block;
+  .separator-image {
+    height: 20px; /* Adjust as needed */
+    width: auto;
+    vertical-align: middle;
   }
 
   @keyframes scrollText {
