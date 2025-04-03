@@ -2,43 +2,45 @@
 {
   "name": "Video Carousel",
   "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Carousel Title"
+    },
     {
       "type": "select",
       "id": "title_tag",
       "label": "Title Tag",
       "options": [
-        { "value": "h1", "label": "H1" },
-        { "value": "h2", "label": "H2" },
-        { "value": "h3", "label": "H3" },
-        { "value": "h4", "label": "H4" }
+        {"value": "h1", "label": "H1"},
+        {"value": "h2", "label": "H2"},
+        {"value": "h3", "label": "H3"},
+        {"value": "h4", "label": "H4"}
       ],
       "default": "h2"
     },
     {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Video Carousel"
-    },
-    {
       "type": "range",
-      "id": "font_size",
-      "label": "Font Size",
+      "id": "title_size",
+      "label": "Title Font Size",
       "min": 12,
       "max": 48,
       "step": 1,
-      "default": 24,
-      "unit": "px"
+      "unit": "px",
+      "default": 24
     },
     {
       "type": "checkbox",
-      "id": "bold",
+      "id": "title_bold",
       "label": "Bold"
     },
     {
       "type": "checkbox",
-      "id": "italic",
+      "id": "title_italic",
       "label": "Italic"
     },
     {
@@ -54,15 +56,9 @@
       "name": "Video Block",
       "settings": [
         {
-          "type": "url",
-          "id": "video_upload",
-          "label": "Upload MP4 Video URL"
-        },
-        {
-          "type": "url",
-          "id": "video_url",
-          "label": "Video URL",
-          "default": ""
+          "type": "video",
+          "id": "video_file",
+          "label": "MP4 Video"
         }
       ]
     }
@@ -70,6 +66,7 @@
   "presets": [
     {
       "name": "Video Carousel",
+      "category": "Media",
       "blocks": [
         { "type": "video" },
         { "type": "video" }
@@ -80,33 +77,33 @@
 {% endschema %}
 
 <div class="video-carousel">
-  {% assign title_tag = section.settings.title_tag %}
-  <{{ title_tag }} style="
-    font-size: {{ section.settings.font_size }}px;
-    color: {{ section.settings.title_color }};
-    {% if section.settings.bold %}font-weight: bold;{% endif %}
-    {% if section.settings.italic %}font-style: italic;{% endif %}
-  ">
-    {{ section.settings.title }}
-  </{{ title_tag }}>
-  
-  <div class="video-container">
-    {% for block in section.blocks %}
-      <div class="video-slide" {{ block.shopify_attributes }}>
-        {% if block.settings.video_upload %}
-          <video controls>
-            <source src="{{ block.settings.video_upload }}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        {% elsif block.settings.video_url %}
-          <video controls>
-            <source src="{{ block.settings.video_url }}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        {% else %}
-          <div class="placeholder">Video Placeholder</div>
-        {% endif %}
-      </div>
-    {% endfor %}
+  <button class="carousel-button left">&#9664;</button>
+  <div class="carousel-container">
+    <{{ section.settings.title_tag }}
+      class="carousel-title"
+      style="
+        font-size: {{ section.settings.title_size }}px;
+        color: {{ section.settings.title_color }};
+        font-weight: {% if section.settings.title_bold %}bold{% else %}normal{% endif %};
+        font-style: {% if section.settings.title_italic %}italic{% else %}normal{% endif %};
+      "
+    >
+      {{ section.settings.title | escape }}
+    </{{ section.settings.title_tag }}>
+    <div class="videos">
+      {% for block in section.blocks %}
+        <div class="video-slide" {{ block.shopify_attributes }}>
+          {% if block.settings.video_file %}
+            <video controls>
+              <source src="{{ block.settings.video_file | video_tag }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% else %}
+            <p>No video uploaded</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
   </div>
+  <button class="carousel-button right">&#9654;</button>
 </div>
