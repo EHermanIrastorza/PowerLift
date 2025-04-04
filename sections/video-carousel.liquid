@@ -1,15 +1,70 @@
 {% schema %}
 {
   "name": "Video Carousel",
-  "class": "section",
+  "class": "section section-video-carousel",
+  "tag": "section", // This tells Shopify to wrap the output in a <section> tag
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Carousel Subtitle",
+      "default": "Optional Subtitle"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_tag",
+      "label": "Subtitle Tag",
+      "options": [
+        {"value": "h1", "label": "H1"},
+        {"value": "h2", "label": "H2"},
+        {"value": "h3", "label": "H3"},
+        {"value": "h4", "label": "H4"},
+        {"value": "h5", "label": "H5"},
+        {"value": "h6", "label": "H6"},
+        {"value": "p", "label": "p"}
+      ],
+      "default": "p"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle Font Size",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "subtitle_bold",
+      "label": "Subtitle Bold",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "subtitle_italic",
+      "label": "Subtitle Italic",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#555555"
+    },
+    {
       "type": "text",
       "id": "title",
-      "label": "Carousel Title"
+      "label": "Carousel Title",
+      "default": "Featured Videos"
     },
     {
       "type": "select",
@@ -36,18 +91,65 @@
     {
       "type": "checkbox",
       "id": "title_bold",
-      "label": "Bold"
+      "label": "Title Bold",
+      "default": false
     },
     {
       "type": "checkbox",
       "id": "title_italic",
-      "label": "Italic"
+      "label": "Title Italic",
+      "default": false
     },
     {
       "type": "color",
       "id": "title_color",
       "label": "Title Color",
       "default": "#000000"
+    },
+     {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll Speed (seconds)",
+      "info": "Duration for one full scroll cycle.",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "default": 40
+    },
+     {
+      "type": "range",
+      "id": "video_width",
+      "label": "Video Width",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "video_height",
+      "label": "Video Height",
+      "min": 150,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 20
     }
   ],
   "blocks": [
@@ -57,9 +159,10 @@
       "settings": [
         {
           "type": "video",
-          "id": "video_file",
+          "id": "video_media",
           "label": "MP4 Video"
         }
+        // Future enhancement: Add settings here for card content per block
       ]
     }
   ],
@@ -69,6 +172,7 @@
       "category": "Media",
       "blocks": [
         { "type": "video" },
+        { "type": "video" },
         { "type": "video" }
       ]
     }
@@ -76,34 +180,190 @@
 }
 {% endschema %}
 
-<div class="video-carousel">
-  <button class="carousel-button left">&#9664;</button>
-  <div class="carousel-container">
-    <{{ section.settings.title_tag }}
-      class="carousel-title"
-      style="
-        font-size: {{ section.settings.title_size }}px;
-        color: {{ section.settings.title_color }};
-        font-weight: {% if section.settings.title_bold %}bold{% else %}normal{% endif %};
-        font-style: {% if section.settings.title_italic %}italic{% else %}normal{% endif %};
-      "
-    >
-      {{ section.settings.title | escape }}
-    </{{ section.settings.title_tag }}>
-    <div class="videos">
-      {% for block in section.blocks %}
-        <div class="video-slide" {{ block.shopify_attributes }}>
-          {% if block.settings.video_file %}
-            <video controls>
-              <source src="{{ block.settings.video_file | video_tag }}" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          {% else %}
-            <p>No video uploaded</p>
-          {% endif %}
-        </div>
-      {% endfor %}
+{%- liquid
+  assign title = section.settings.title
+  assign title_tag = section.settings.title_tag | default: 'h2'
+  assign title_size = section.settings.title_size | default: 24
+  assign title_bold = section.settings.title_bold | default: false
+  assign title_italic = section.settings.title_italic | default: false
+  assign title_color = section.settings.title_color | default: '#000000'
+
+  assign subtitle = section.settings.subtitle
+  assign subtitle_tag = section.settings.subtitle_tag | default: 'p'
+  assign subtitle_size = section.settings.subtitle_size | default: 16
+  assign subtitle_bold = section.settings.subtitle_bold | default: false
+  assign subtitle_italic = section.settings.subtitle_italic | default: false
+  assign subtitle_color = section.settings.subtitle_color | default: '#555555'
+
+  assign scroll_speed = section.settings.scroll_speed | default: 40
+  assign gap = section.settings.gap | default: 20
+  assign video_width = section.settings.video_width | default: 300
+  assign video_height = section.settings.video_height | default: 420
+
+  assign section_id = section.id
+-%}
+
+<style>
+  .video-carousel-{{ section_id }} {
+    padding: 40px 0; /* Increased padding slightly */
+    background: rgba(246, 246, 245, 1); /* Added background color */
+  }
+
+  .video-carousel-{{ section_id }} .carousel-header {
+     text-align: center;
+     margin-bottom: 30px; /* Increased spacing */
+  }
+
+  .video-carousel-{{ section_id }} .carousel-subtitle { /* Use section ID for specificity */
+    font-size: {{ subtitle_size }}px;
+    color: {{ subtitle_color }};
+    font-weight: {% if subtitle_bold %}bold{% else %}normal{% endif %};
+    font-style: {% if subtitle_italic %}italic{% else %}normal{% endif %};
+    margin-bottom: 5px; /* Space between subtitle and title */
+    display: block;
+    line-height: 1.4;
+  }
+
+  .video-carousel-{{ section_id }} .carousel-title { /* Use section ID for specificity */
+    font-size: {{ title_size }}px;
+    color: {{ title_color }};
+    font-weight: {% if title_bold %}bold{% else %}normal{% endif %};
+    font-style: {% if title_italic %}italic{% else %}normal{% endif %};
+    margin: 0; /* Remove default margin if subtitle exists */
+    line-height: 1.3;
+  }
+
+  .video-carousel-{{ section_id }} .videos-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .video-carousel-{{ section_id }} .videos-track {
+    display: flex;
+    gap: {{ gap }}px;
+    width: fit-content; /* Let width be determined by content */
+    animation: scrollVideos-{{ section_id }} {{ scroll_speed }}s linear infinite;
+    white-space: nowrap; /* Prevent wrapping */
+  }
+
+  .video-carousel-{{ section_id }} .video-slide {
+    flex: 0 0 auto; /* Prevent shrinking/growing */
+    display: flex; /* Use flexbox for vertical layout */
+    flex-direction: column; /* Stack video and card vertically */
+  }
+
+  .video-carousel-{{ section_id }} .video-container,
+  .video-carousel-{{ section_id }} .video-placeholder { /* Wrapper for video or placeholder */
+    width: {{ video_width }}px;
+    height: {{ video_height }}px;
+    border-radius: 8px;
+    overflow: hidden; /* Ensure video corners are rounded */
+    background-color: #f0f0f0; /* Background for placeholder */
+    display: flex; /* For placeholder text centering */
+    align-items: center;
+    justify-content: center;
+  }
+
+   .video-carousel-{{ section_id }} .video-container video {
+    display: block;
+    width: 100%; /* Make video fill container */
+    height: 100%;
+    object-fit: cover; /* Cover the area without distortion */
+  }
+
+  .video-carousel-{{ section_id }} .video-placeholder span {
+    font-size: 14px;
+    color: #888;
+  }
+
+  .video-carousel-{{ section_id }} .video-info-card { /* Style for the new card */
+    width: {{ video_width }}px; /* Use setting, matches video width */
+    height: 80px;
+    border-radius: 8px;
+    background-color: #ffffff; /* Default white background */
+    margin-top: {{ gap | divided_by: 2 }}px; /* Add some space based on gap */
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional subtle shadow */
+  }
+
+  @keyframes scrollVideos-{{ section_id }} {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      /* This assumes the duplicated content makes the track exactly 2x the width of one set */
+      transform: translateX(calc(-50% - {{ gap | divided_by: 2 }}px)); /* Adjust for gap in calculation */
+    }
+  }
+
+  /* Optional: Pause animation on hover */
+  .video-carousel-{{ section_id }}:hover .videos-track {
+     animation-play-state: paused;
+  }
+</style>
+
+<div class="video-carousel-{{ section_id }}">
+  <div class="carousel-header page-width"> {% comment %} Added page-width for centering content {% endcomment %}
+    {% if subtitle != blank %}
+      <{{ subtitle_tag }} class="carousel-subtitle">
+        {{ subtitle | escape }}
+      </{{ subtitle_tag }}>
+    {% endif %}
+    {% if title != blank %}
+      <{{ title_tag }} class="carousel-title">
+        {{ title | escape }}
+      </{{ title_tag }}>
+    {% endif %}
+  </div>
+
+  <div class="videos-wrapper">
+    <div class="videos-track">
+      {%- if section.blocks.size > 0 -%}
+        {% comment %} Render first set of videos + cards {% endcomment %}
+        {%- for block in section.blocks -%}
+          <div class="video-slide" {{ block.shopify_attributes }}>
+            {%- assign video_media = block.settings.video_media -%}
+            {%- if video_media != blank -%}
+              <div class="video-container">
+                {{- video_media | video_tag: class: 'video-element', autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: "metadata" -}}
+              </div>
+            {%- else -%}
+              <div class="video-placeholder">
+                <span>No video</span>
+              </div>
+            {%- endif -%}
+            <div class="video-info-card">
+              working progress
+            </div>
+          </div>
+        {%- endfor -%}
+
+        {% comment %} Duplicate videos + cards for seamless infinite scroll - REQUIRED for the CSS animation {% endcomment %}
+        {%- for block in section.blocks -%}
+           <div class="video-slide" aria-hidden="true"> {% comment %} Hide duplicate from screen readers {% endcomment %}
+            {%- assign video_media = block.settings.video_media -%}
+            {%- if video_media != blank -%}
+               <div class="video-container">
+                 {{- video_media | video_tag: class: 'video-element', autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: "metadata" -}}
+              </div>
+            {%- else -%}
+               <div class="video-placeholder">
+                 <span>No video</span>
+              </div>
+            {%- endif -%}
+            <div class="video-info-card">
+              working progress
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
-  <button class="carousel-button right">&#9654;</button>
 </div>
