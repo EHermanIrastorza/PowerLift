@@ -1,5 +1,6 @@
 <section class="custom-navbar">
   <div class="navbar-container">
+
     <!-- Logo -->
     <div class="navbar-logo">
       <a href="{{ shop.url }}">
@@ -8,14 +9,16 @@
         {% endif %}
       </a>
     </div>
-    
+
     <!-- Search Icon & Bar -->
     <div class="navbar-search">
-      <button class="search-toggle" onclick="toggleSearch()">🔍</button>
+      <button class="search-toggle" onclick="toggleSearch()">
+        {% render 'icon-magnify-glass' %}
+      </button>
       <input type="text" id="search-bar" class="search-bar" placeholder="Search products..." oninput="searchProducts()">
       <ul id="search-results" class="search-results"></ul>
     </div>
-    
+
     <!-- Navigation -->
     <nav class="navbar-navigation">
       <ul class="navbar-menu">
@@ -32,159 +35,213 @@
 
     <!-- User Button -->
     <div class="navbar-user">
-      <button class="user-button">👤</button>
+      <button class="user-button">
+        <img src="{{ 'User_custom.svg' | asset_url }}" alt="User" width="20" height="20" />
+      </button>
     </div>
 
     <!-- Cart Button -->
     <div class="navbar-cart">
       <a href="{{ routes.cart_url }}" class="cart-button">
-        🛒 <span id="cart-count">0</span>
+        <img src="{{ 'Cart_custom.svg' | asset_url }}" alt="Cart" width="20" height="20" />
+        <span id="cart-count">0</span>
       </a>
     </div>
+    
   </div>
 </section>
 
 <style>
   .custom-navbar {
-      width: 1570px;
-      height: 70px;
-      position: absolute;
-      top: 20px;
-      left: 40px;
-      background-color: white;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
+    width: 1570px;
+    height: 70px;
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
   }
+
   .navbar-container {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
   }
-  .navbar-menu {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      gap: 20px;
-  }
-  .navbar-menu li a {
-      text-decoration: none;
-      color: inherit;
-      font-size: 16px;
-  }
+
   .navbar-logo-img {
-      width: auto;
-      height: auto;
-      max-height: none;
-      max-width: none;
+    width: auto;
+    height: auto;
+    max-height: none;
+    max-width: none;
   }
+
+  .navbar-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+  }
+
+  .navbar-menu li a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 16px;
+  }
+
   .navbar-search {
-      position: relative;
+    position: relative;
   }
+
+  .search-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
   .search-bar {
-      display: none;
-      width: 200px;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    background: white;
+    z-index: 10;
   }
+
+  .search-bar.show {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
   .search-results {
-      position: absolute;
-      background: white;
-      list-style: none;
-      padding: 0;
-      margin: 5px 0 0;
-      width: 100%;
-      display: none;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    position: absolute;
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    width: 200px;
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 9;
   }
+
   .search-results li {
-      padding: 5px;
-      cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
   }
+
   .navbar-button {
-      margin-left: 20px;
+    margin-left: 20px;
   }
+
   .quiz-button {
-      background-color: black;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
   }
+
   .navbar-user {
-      margin-left: 15px;
+    margin-left: 15px;
   }
+
   .user-button {
-      background: transparent;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
   }
+
   .navbar-cart {
-      margin-left: 15px;
+    margin-left: 15px;
   }
+
   .cart-button {
-      text-decoration: none;
-      font-size: 20px;
-      position: relative;
-      display: flex;
-      align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
   }
+
   #cart-count {
-      background-color: red;
-      color: white;
-      font-size: 12px;
-      border-radius: 50%;
-      padding: 4px 7px;
-      position: absolute;
-      top: -5px;
-      right: -10px;
+    display: none;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 4px 7px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+  }
+
+  .navbar-search svg {
+    width: 17px;
+    height: 16px;
+    color: #000;
   }
 </style>
 
 <script>
   function toggleSearch() {
-      const searchBar = document.getElementById('search-bar');
-      searchBar.style.display = searchBar.style.display === 'block' ? 'none' : 'block';
+    const searchBar = document.getElementById('search-bar');
+    searchBar.classList.toggle('show');
   }
 
   function searchProducts() {
-      let query = document.getElementById('search-bar').value.toLowerCase();
-      let resultsContainer = document.getElementById('search-results');
-      resultsContainer.innerHTML = '';
-      
-      fetch('/search/suggest.json?q=' + query + '&resources[type]=product')
-          .then(response => response.json())
-          .then(data => {
-              let results = data.resources.results.products;
-              if (results.length > 0) {
-                  resultsContainer.style.display = 'block';
-                  results.forEach(product => {
-                      let li = document.createElement('li');
-                      li.textContent = product.title;
-                      li.onclick = () => window.location.href = product.url;
-                      resultsContainer.appendChild(li);
-                  });
-              } else {
-                  resultsContainer.style.display = 'none';
-              }
+    let query = document.getElementById('search-bar').value.toLowerCase();
+    let resultsContainer = document.getElementById('search-results');
+    resultsContainer.innerHTML = '';
+    
+    fetch('/search/suggest.json?q=' + query + '&resources[type]=product')
+      .then(response => response.json())
+      .then(data => {
+        let results = data.resources.results.products;
+        if (results.length > 0) {
+          resultsContainer.style.display = 'block';
+          results.forEach(product => {
+            let li = document.createElement('li');
+            li.textContent = product.title;
+            li.onclick = () => window.location.href = product.url;
+            resultsContainer.appendChild(li);
           });
+        } else {
+          resultsContainer.style.display = 'none';
+        }
+      });
   }
+
   document.addEventListener("DOMContentLoaded", function () {
     function updateCartCount() {
       fetch('/cart.js')
         .then(response => response.json())
         .then(data => {
-          document.getElementById('cart-count').innerText = data.item_count;
+          const cartCount = document.getElementById('cart-count');
+          if (data.item_count > 0) {
+            cartCount.innerText = data.item_count;
+            cartCount.style.display = 'inline-block';
+          } else {
+            cartCount.style.display = 'none';
+          }
         });
     }
 
