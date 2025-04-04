@@ -1,6 +1,7 @@
 {% schema %}
 {
   "name": "Product Page Collection",
+  "tag": "section",
   "class": "section",
   "disabled_on": {
     "groups": ["header", "footer"]
@@ -41,9 +42,14 @@
       {% if collection and collection.products.size > 0 %}
         {% for product in collection.products %}
           <div class="product-item">
+            {% if product.featured_image %}
+              <div class="product-image">
+                <img src="{{ product.featured_image | image_url }}" height="" width="" alt="{{ product.title }}">
+              </div>
+            {% endif %}
             <h4>{{ product.title }}</h4>
             <p>{{ product.price | money }}</p>
-                    </div>
+          </div>
         {% endfor %}
       {% else %}
         <p>No products found in this collection.</p>
