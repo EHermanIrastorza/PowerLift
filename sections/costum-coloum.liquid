@@ -1,6 +1,11 @@
 {% schema %}
   {
-  "name": "Custom Section",
+  "name": "Custom image column",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "select",
@@ -48,35 +53,9 @@
     },
     {
       "type": "textarea",
-      "id": "paragraph_text",
-      "label": "Paragraph Text",
-      "default": "Your paragraph here."
-    },
-    {
-      "type": "color",
-      "id": "paragraph_color",
-      "label": "Paragraph Color",
-      "default": "#333333"
-    },
-    {
-      "type": "range",
-      "id": "paragraph_size",
-      "label": "Paragraph Size (px)",
-      "min": 12,
-      "max": 30,
-      "step": 1,
-      "default": 16
-    },
-    {
-      "type": "select",
-      "id": "paragraph_alignment",
-      "label": "Paragraph Alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
+      "id": "subtitle_text",
+      "label": "Subtitle Text",
+      "default": "Your subtitle here."
     },
     {
       "type": "range",
@@ -88,15 +67,13 @@
       "default": 2
     },
     {
-      "type": "select",
-      "id": "column_text_alignment",
-      "label": "Column Text Alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column Gap (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10
     },
     {
       "type": "range",
@@ -106,6 +83,17 @@
       "max": 50,
       "step": 1,
       "default": 0
+    },
+    {
+      "type": "select",
+      "id": "column_text_alignment",
+      "label": "Column Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     }
   ],
   "blocks": [
@@ -137,30 +125,17 @@
           "default": "#000000"
         },
         {
-          "type": "range",
-          "id": "column_text_size",
-          "label": "Column Text Size (px)",
-          "min": 12,
-          "max": 30,
-          "step": 1,
-          "default": 16
-        },
-        {
-          "type": "select",
-          "id": "column_title_bold",
-          "label": "Column Title Font Weight",
-          "options": [
-            { "value": "normal", "label": "Regular" },
-            { "value": "bold", "label": "Bold" }
-          ],
-          "default": "normal"
+          "type": "textarea",
+          "id": "column_subtext",
+          "label": "Column Subtext",
+          "default": "Additional information here."
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Custom Section"
+      "name": "Custom image column"
     }
   ]
 }
@@ -170,22 +145,30 @@
   <{{ section.settings.title_tag }} class="section-title" style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px; text-align: {{ section.settings.title_alignment }};">
     {{ section.settings.title_text }}
   </{{ section.settings.title_tag }}>
-  <p class="section-paragraph" style="color: {{ section.settings.paragraph_color }}; font-size: {{ section.settings.paragraph_size }}px; text-align: {{ section.settings.paragraph_alignment }};">
-    {{ section.settings.paragraph_text }}
-  </p>
 
-  <div class="columns" style="display: grid; grid-template-columns: repeat({{ section.settings.column_count }}, 1fr); gap: 20px;">
+  {% if section.settings.subtitle_text != blank %}
+    <p class="section-subtitle" style="text-align: {{ section.settings.title_alignment }};">
+      {{ section.settings.subtitle_text }}
+    </p>
+  {% endif %}
+
+  <div class="columns" style="display: flex; gap: {{ section.settings.column_gap }}px; flex-wrap: wrap; justify-content: center;">
     {% for block in section.blocks %}
       <div class="column" style="text-align: {{ section.settings.column_text_alignment }};">
         {% if block.settings.column_image %}
-          <img src="{{ block.settings.column_image | img_url: 'medium' }}" alt="{{ block.settings.column_title }}" class="column-image" width="", height="" style="border-radius: {{ section.settings.column_image_border_radius }}px; object-fit: cover;" />
+          <img src="{{ block.settings.column_image | img_url: 'medium' }}" width="" height="" alt="{{ block.settings.column_title }}" class="column-image" style="width: 288px; height: 392px; object-fit: cover; display: block; border-radius: {{ section.settings.column_image_border_radius }}px;" />
         {% endif %}
-        <h2 class="column-title" style="color: {{ block.settings.column_text_color }}; font-size: {{ block.settings.column_text_size }}px; font-weight: {{ block.settings.column_title_bold }};">
+        <h2 class="column-title" style="color: {{ block.settings.column_text_color }};">
           {{ block.settings.column_title }}
         </h2>
-        <p class="column-description" style="color: {{ block.settings.column_text_color }}; font-size: {{ block.settings.column_text_size }}px;">
+        <p class="column-description" style="color: {{ block.settings.column_text_color }};">
           {{ block.settings.column_description }}
         </p>
+        {% if block.settings.column_subtext != blank %}
+          <p class="column-subtext" style="color: {{ block.settings.column_text_color }};">
+            {{ block.settings.column_subtext }}
+          </p>
+        {% endif %}
       </div>
     {% endfor %}
   </div>
