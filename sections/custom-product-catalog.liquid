@@ -8,6 +8,57 @@
   },
   "settings": [
     {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 16,
+      "label": "Subtitle Font Size (px)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title"
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title HTML Tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "default": 28,
+      "label": "Title Font Size (px)"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
       "type": "collection",
       "id": "selected_collection",
       "label": "Select Collection"
@@ -21,8 +72,90 @@
   ]
 }
 {% endschema %}
+<style>
+  .product-page {
+    padding: 40px 20px;
+  }
 
-<div class="product-page">
+  .section-subtitle {
+    margin: 0;
+  }
+
+  .section-title {
+    margin: 0;
+  }
+
+  .product-details {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .collection-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .collection-products h3 {
+    width: 100%;
+  }
+
+  .product-item {
+    width: 365px;
+    height: 505px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+
+  .product-image {
+    padding-top: 26px;
+    padding-left: 26px;
+  }
+
+  .product-image img {
+    width: 314px;
+    height: 314px;
+    object-fit: cover;
+  }
+
+  .product-info {
+    padding: 16px;
+  }
+
+  .product-info h4 {
+    margin: 0 0 8px 0;
+  }
+
+  .product-info p {
+    margin: 0;
+  }
+
+  .collection-products p {
+    width: 100%;
+    text-align: center;
+  }
+</style>
+
+<div class="product-page" style="text-align: {{ section.settings.text_align }};">
+  
+  {% if section.settings.subtitle != blank %}
+    <p class="section-subtitle" style="font-size: {{ section.settings.subtitle_font_size }}px;">
+      {{ section.settings.subtitle }}
+    </p>
+  {% endif %}
+
+  {% if section.settings.title != blank %}
+    <{{ section.settings.title_tag }}
+      class="section-title"
+      style="font-size: {{ section.settings.title_font_size }}px;">
+      {{ section.settings.title }}
+    </{{ section.settings.title_tag }}>
+  {% endif %}
+
   <!-- Product Details Section -->
   <div class="product-details">
     <h1>{{ product.title }}</h1>
@@ -36,7 +169,10 @@
 
   <!-- Collection Products Display -->
   <div class="collection-products">
-    <h3>Products from Selected Collection</h3>
+    <h3 style="text-align: {{ section.settings.text_align }};">
+      Products from Selected Collection
+    </h3>
+
     {% if section.settings.selected_collection %}
       {% assign collection = collections[section.settings.selected_collection] %}
       {% if collection and collection.products.size > 0 %}
@@ -44,11 +180,16 @@
           <div class="product-item">
             {% if product.featured_image %}
               <div class="product-image">
-                <img src="{{ product.featured_image | image_url }}" height="" width="" alt="{{ product.title }}">
+                <img src="{{ product.featured_image | image_url }}" width="" height="" alt="{{ product.title }}">
               </div>
             {% endif %}
-            <h4>{{ product.title }}</h4>
-            <p>{{ product.price | money }}</p>
+
+            <div class="product-info">
+              <h4>{{ product.title }}</h4>
+              <p>{{ product.description }}</p>
+              <p>{{ product.tags}}</p>
+              <p>{{ product.price | money }}</p>
+            </div>
           </div>
         {% endfor %}
       {% else %}
