@@ -1,6 +1,7 @@
 {% schema %}
 {
   "name": "Product Bundle Collection",
+  "tag": "section",
   "class": "section",
   "disabled_on": {
     "groups": ["header", "footer"]
@@ -36,6 +37,12 @@
       "default": "h2"
     },
     {
+      "type": "checkbox",
+      "id": "title_bold",
+      "label": "Make Title Bold",
+      "default": true
+    },
+    {
       "type": "range",
       "id": "title_size",
       "label": "Title Font Size",
@@ -55,28 +62,6 @@
         { "value": "right", "label": "Right" }
       ],
       "default": "left"
-    },
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "label": "Products Per Page",
-      "min": 1,
-      "max": 12,
-      "step": 1,
-      "default": 4
-    },
-    {
-      "type": "select",
-      "id": "product_filter",
-      "label": "Filter by Category",
-      "options": [
-        { "value": "sleep", "label": "Sleep" },
-        { "value": "cognitive_function", "label": "Cognitive Function" },
-        { "value": "foundational_health", "label": "Foundational Health" },
-        { "value": "athletic_performance", "label": "Athletic Performance" },
-        { "value": "hormone_support", "label": "Hormone Support" }
-      ],
-      "default": "sleep"
     }
   ],
   "presets": [
@@ -88,59 +73,155 @@
 }
 {% endschema %}
 
-<div class="product-page">
-  <!-- Custom Title and Text -->
-  <{{ section.settings.title_tag }} 
-    style="font-size: {{ section.settings.title_size }}px; text-align: {{ section.settings.title_align }};">
-    {{ section.settings.custom_title }}
-  </{{ section.settings.title_tag }}>
-  <p>{{ section.settings.custom_text }}</p>
+<style>
+  .bundle-section {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 1);
+  }
 
-  <!-- Product Details Section -->
-  <div class="product-details">
-    <h2>{{ product.title }}</h2>
-    <div class="product-description">
-      {{ product.description }}
+  .header-group {
+    display: flex;
+    flex-direction: row; /* Alinear en fila */
+    justify-content: space-between; /* Distribuir espacio entre título y lista */
+    align-items: center; /* Alinear verticalmente */
+    margin-bottom: 40px;
+  }
+
+  .title-wrapper {
+    display: flex;
+    flex-direction: column; /* Título y subtítulo en columna */
+    text-align: {{ section.settings.title_align }};
+  }
+
+  .bundle-subtitle {
+    margin-bottom: 0.5rem;
+  }
+
+  .bundle-title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: {% if section.settings.title_bold %}bold{% else %}normal{% endif %};
+    margin: 0;
+  }
+
+  .list-wrapper {
+    display: flex;
+    align-items: center; /* Centrar la lista verticalmente */
+  }
+
+  .custom-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .custom-list li {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .product-listing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .product-card {
+    width: 365px;
+    height: 505px;
+    background: rgba(246, 246, 245, 1);
+    border-radius: 8px;
+    list-style: none;
+    margin: 1rem;
+  }
+
+  .product-image-wrapper {
+    width: 365px;
+    height: 365px;
+  }
+
+  .product-image-wrapper img {
+    width: 300px;
+    height: 300px;
+    padding-top: 33px;
+    padding-left: 33px;
+    object-fit: contain;
+  }
+
+  .product-info {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .product-description,
+  .product-tags {
+    font-size: 14px;
+    margin: 0;
+  }
+</style>
+
+<div class="bundle-section">
+  <!-- Agrupación de subtítulo + título + lista -->
+  <div class="header-group">
+    <div class="title-wrapper">
+      <p class="bundle-subtitle">{{ section.settings.custom_text }}</p>
+      <{{ section.settings.title_tag }}
+        class="bundle-title">
+        {{ section.settings.custom_title }}
+      </{{ section.settings.title_tag }}>
     </div>
-    <div class="product-price">
-      <span class="price">{{ product.price | money }}</span>
+
+    <div class="list-wrapper">
+      <ul class="custom-list">
+        <li>Sleep</li>
+        <li>Cognitive Function</li>
+        <li>Foundational Health</li>
+        <li>Athletic Performance</li>
+        <li>Hormone Support</li>
+      </ul>
     </div>
   </div>
 
-  <!-- Collection Products Display with Pagination -->
-  <div class="collection-products">
-    <h3>Products from Selected Collection</h3>
+  <!-- Renderizado de la colección -->
+  <div>
     {% if section.settings.selected_collection %}
       {% assign collection = collections[section.settings.selected_collection] %}
       {% if collection and collection.products.size > 0 %}
-        {% paginate collection.products by section.settings.products_per_page %}
-          <ol>
-            {% for product in collection.products %}
-              <li>
-                <!-- Render Product Image -->
-                <div class="product-image">
-                  <img src="{{ product.featured_image | img_url: 'medium' }}" width="" height="" alt="{{ product.title }}">
-                </div>
-                
-                <!-- Render Product Title and Price -->
-                <h4>{{ product.title }}</h4>
-                <p>{{ product.price | money }}</p>
-              </li>
-            {% endfor %}
-          </ol>
-          <div class="pagination">
-            {% if paginate.previous %}
-              <a href="{{ paginate.previous.url }}">Previous</a>
-            {% endif %}
-            {% if paginate.next %}
-              <a href="{{ paginate.next.url }}">Next</a>
-            {% endif %}
-          </div>
-        {% endpaginate %}
+        <ol class="product-listing">
+          {% for product in collection.products %}
+            <li class="product-card">
+              <div class="product-image-wrapper">
+                <img src="{{ product.featured_image | img_url: 'medium' }}" width="" height="" alt="{{ product.title }}">
+              </div>
+              <div class="product-info">
+                <h4 class="product-title">{{ product.title }}</h4>
+                <p class="product-description">{{ product.description | truncatewords: 20 }}</p>
+                <p class="product-tags">{{ product.tags }}</p>
+              </div>
+              <p>{{ product.price | money }}</p>
+            </li>
+          {% endfor %}
+        </ol>
       {% else %}
+        <h3>Products from Selected Collection</h3>
         <p>No products found in this collection.</p>
       {% endif %}
     {% else %}
+      <h3>Products from Selected Collection</h3>
       <p>Please select a collection in the theme settings.</p>
     {% endif %}
   </div>

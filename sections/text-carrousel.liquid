@@ -29,11 +29,6 @@
       "label": "Text 4",
       "id": "text_4",
       "default": "Fourth Recommendation"
-    },
-    {
-      "type": "image_picker",
-      "id": "separator_image",
-      "label": "Separator Image"
     }
   ],
   "presets": [
@@ -46,75 +41,74 @@
 {% endschema %}
 
 <section class="text-carousel-section">
-  <div class="text-carousel">
-    <span>{{ section.settings.text_1 }}</span>
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_2 }}</span>
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_3 }}</span>
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_4 }}</span>
-    <!-- Duplicating content for infinite scrolling -->
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_1 }}</span>
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_2 }}</span>
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width="" alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_3 }}</span>
-    {% if section.settings.separator_image %}
-      <img src="{{ section.settings.separator_image | img_url: 'small' }}" height="" width=""  alt="Separator" class="separator-image">
-    {% endif %}
-    <span>{{ section.settings.text_4 }}</span>
+  <div class="carousel-wrapper">
+    <div class="text-carousel">
+      {% for i in (1..3) %}
+        <span class="carousel-item">{{ section.settings.text_1 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_2 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_3 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_4 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_1 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_2 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_3 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+        <span class="carousel-item">{{ section.settings.text_4 }}</span>
+        <img src="{{ 'Star_text_carrousel.svg' | asset_url }}" width="" height="" alt="Star" class="separator-image">
+      {% endfor %}
+    </div>
   </div>
 </section>
 
 <style>
   .text-carousel-section {
-    position: relative;
+    background-color: black;
     overflow: hidden;
-    width: 100%;
-    height: 50px; /* Fixed height */
-    background-color: black; /* Background black */
+    height: 60px;
     display: flex;
-    align-items: center; /* Center text vertically */
+    align-items: center;
+    width: 100%;
+  }
+
+  .carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
   }
 
   .text-carousel {
     display: flex;
-    gap: 16px; /* Space between text items */
+    align-items: center;
+    gap: 32px;
     white-space: nowrap;
-    color: white; /* White text */
-    font-size: 16px;
+    animation: scrollText 20s linear infinite;
+  }
+
+  .carousel-item {
+    color: white;
+    font-size: 18px;
     font-weight: bold;
-    width: 100%; /* Occupies full width */
-    justify-content: space-between; /* Ensures text spans across the whole width */
-    animation: scrollText 10s linear infinite;
+    display: flex;
+    align-items: center;
   }
 
   .separator-image {
-    height: 20px; /* Adjust as needed */
+    height: 20px;
     width: auto;
-    vertical-align: middle;
+    margin: 0 16px;
+    display: inline-block;
   }
 
   @keyframes scrollText {
-    from {
-      transform: translateX(100%);
+    0% {
+      transform: translateX(0%);
     }
-    to {
-      transform: translateX(-100%);
+    100% {
+      transform: translateX(-33.33%);
     }
   }
 </style>
