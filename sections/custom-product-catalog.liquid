@@ -39,6 +39,12 @@
       ]
     },
     {
+      "type": "checkbox",
+      "id": "title_bold",
+      "label": "Make Title Bold",
+      "default": true
+    },
+    {
       "type": "range",
       "id": "title_font_size",
       "min": 14,
@@ -72,9 +78,11 @@
   ]
 }
 {% endschema %}
+
 <style>
   .product-page {
     padding: 40px 20px;
+    background: rgba(246, 246, 245, 1);
   }
 
   .section-subtitle {
@@ -104,7 +112,7 @@
 
   .product-item {
     width: 365px;
-    height: 505px;
+    height: auto;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     overflow: hidden;
@@ -112,26 +120,54 @@
   }
 
   .product-image {
-    padding-top: 26px;
-    padding-left: 26px;
+    width: 365px;
+    height: 365px;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   .product-image img {
-    width: 314px;
-    height: 314px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
   .product-info {
     padding: 16px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .product-info h4 {
-    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
   }
 
-  .product-info p {
-    margin: 0;
+  .product-stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .product-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .product-price-button {
+    background-color: black;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
   }
 
   .collection-products p {
@@ -151,7 +187,7 @@
   {% if section.settings.title != blank %}
     <{{ section.settings.title_tag }}
       class="section-title"
-      style="font-size: {{ section.settings.title_font_size }}px;">
+      style="font-size: {{ section.settings.title_font_size }}px; {% if section.settings.title_bold %}font-weight: bold;{% else %}font-weight: normal;{% endif %}">
       {{ section.settings.title }}
     </{{ section.settings.title_tag }}>
   {% endif %}
@@ -169,9 +205,11 @@
 
   <!-- Collection Products Display -->
   <div class="collection-products">
-    <h3 style="text-align: {{ section.settings.text_align }};">
-      Products from Selected Collection
-    </h3>
+    {% unless section.settings.selected_collection %}
+      <h3 style="text-align: {{ section.settings.text_align }};">
+        Products from Selected Collection
+      </h3>
+    {% endunless %}
 
     {% if section.settings.selected_collection %}
       {% assign collection = collections[section.settings.selected_collection] %}
@@ -180,15 +218,30 @@
           <div class="product-item">
             {% if product.featured_image %}
               <div class="product-image">
-                <img src="{{ product.featured_image | image_url }}" width="" height="" alt="{{ product.title }}">
+                <img src="{{ product.featured_image | image_url }}" alt="{{ product.title }}">
               </div>
             {% endif %}
 
             <div class="product-info">
               <h4>{{ product.title }}</h4>
               <p>{{ product.description }}</p>
-              <p>{{ product.tags}}</p>
-              <p>{{ product.price | money }}</p>
+              <p>{{ product.tags }}</p>
+
+              <!-- Stars + Button in one line -->
+              <div class="product-footer">
+                <div class="product-stars">
+                  {% for i in (1..5) %}
+                    <img src="{{ 'Black_Star.svg' | asset_url }}" width="16" height="16" alt="star">
+                  {% endfor %}
+                </div>
+
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <button type="submit" class="product-price-button">
+                    Add {{ product.price | money }}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         {% endfor %}
