@@ -81,15 +81,15 @@
 
   .header-group {
     display: flex;
-    flex-direction: row; /* Alinear en fila */
-    justify-content: space-between; /* Distribuir espacio entre título y lista */
-    align-items: center; /* Alinear verticalmente */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 40px;
   }
 
   .title-wrapper {
     display: flex;
-    flex-direction: column; /* Título y subtítulo en columna */
+    flex-direction: column;
     text-align: {{ section.settings.title_align }};
   }
 
@@ -105,7 +105,7 @@
 
   .list-wrapper {
     display: flex;
-    align-items: center; /* Centrar la lista verticalmente */
+    align-items: center;
   }
 
   .custom-list {
@@ -133,7 +133,7 @@
 
   .product-card {
     width: 365px;
-    height: 505px;
+    height: auto;
     background: rgba(246, 246, 245, 1);
     border-radius: 8px;
     list-style: none;
@@ -154,7 +154,7 @@
   }
 
   .product-info {
-    padding: 0 20px;
+    padding: 0 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -172,6 +172,34 @@
     font-size: 14px;
     margin: 0;
   }
+
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .product-stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .product-price-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .product-price-button:hover {
+    background-color: #333;
+  }
 </style>
 
 <div class="bundle-section">
@@ -179,8 +207,7 @@
   <div class="header-group">
     <div class="title-wrapper">
       <p class="bundle-subtitle">{{ section.settings.custom_text }}</p>
-      <{{ section.settings.title_tag }}
-        class="bundle-title">
+      <{{ section.settings.title_tag }} class="bundle-title">
         {{ section.settings.custom_title }}
       </{{ section.settings.title_tag }}>
     </div>
@@ -211,8 +238,22 @@
                 <h4 class="product-title">{{ product.title }}</h4>
                 <p class="product-description">{{ product.description | truncatewords: 20 }}</p>
                 <p class="product-tags">{{ product.tags }}</p>
+
+                <div class="product-footer">
+                  <div class="product-stars">
+                    {% for i in (1..5) %}
+                      <img src="{{ 'Black_Star.svg' | asset_url }}" width="16" height="16" alt="star">
+                    {% endfor %}
+                  </div>
+
+                  <form method="post" action="/cart/add">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <button type="submit" class="product-price-button">
+                      Add {{ product.price | money }}
+                    </button>
+                  </form>
+                </div>
               </div>
-              <p>{{ product.price | money }}</p>
             </li>
           {% endfor %}
         </ol>
