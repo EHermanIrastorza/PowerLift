@@ -22,8 +22,7 @@
         "text_NU3qUz": {
           "type": "text",
           "settings": {
-            "text": "Este texto es de prueba",
-            "text_style": "body"
+            "text": "Este texto es de prueba"
           }
         },
         "buttons_zrMEwU": {
@@ -31,10 +30,8 @@
           "settings": {
             "button_label_1": "dsa",
             "button_link_1": "",
-            "button_style_secondary_1": true,
             "button_label_2": "Botón 2",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_link_2": ""
           }
         }
       },
@@ -123,8 +120,7 @@
             "column_title": "Column Title",
             "column_description": "This is a description for the column.",
             "column_text_color": "#000000",
-            "column_text_size": 19,
-            "column_title_bold": "bold"
+            "column_subtext": "Additional information here."
           }
         },
         "column_prmpBQ": {
@@ -134,8 +130,7 @@
             "column_title": "Column Title",
             "column_description": "This is a description for the column.",
             "column_text_color": "#000000",
-            "column_text_size": 16,
-            "column_title_bold": "normal"
+            "column_subtext": "Additional information here."
           }
         },
         "column_Crm93b": {
@@ -145,8 +140,7 @@
             "column_title": "Column Title",
             "column_description": "This is a description for the column.",
             "column_text_color": "#000000",
-            "column_text_size": 16,
-            "column_title_bold": "normal"
+            "column_subtext": "Additional information here."
           }
         },
         "column_m3pPRy": {
@@ -156,8 +150,7 @@
             "column_title": "Column Title",
             "column_description": "This is a description for the column.",
             "column_text_color": "#000000",
-            "column_text_size": 16,
-            "column_title_bold": "normal"
+            "column_subtext": "Additional information here."
           }
         },
         "column_QyWy8T": {
@@ -167,8 +160,7 @@
             "column_title": "Column Title",
             "column_description": "This is a description for the column.",
             "column_text_color": "#000000",
-            "column_text_size": 16,
-            "column_title_bold": "normal"
+            "column_subtext": "Additional information here."
           }
         }
       },
@@ -185,47 +177,241 @@
         "title_color": "#000000",
         "title_size": 30,
         "title_alignment": "center",
-        "paragraph_text": "Your paragraph hered.",
-        "paragraph_color": "#333333",
-        "paragraph_size": 16,
-        "paragraph_alignment": "center",
+        "subtitle_text": "Your subtitle here.",
         "column_count": 5,
-        "column_text_alignment": "center",
-        "column_image_border_radius": 15
+        "column_gap": 10,
+        "column_image_border_radius": 15,
+        "column_text_alignment": "center"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "custom_css": [],
+    "custom_product_catalog_ETYFkj": {
+      "type": "custom-product-catalog",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "<p>dsa</p>",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 100,
-        "padding_bottom": 100
+        "subtitle": "",
+        "subtitle_font_size": 16,
+        "title": "",
+        "title_tag": "h2",
+        "title_bold": true,
+        "title_font_size": 28,
+        "text_align": "center",
+        "selected_collection": "suplements"
       }
     },
-    "clean_suplement_custom_pUnLym": {
-      "type": "clean-suplement-custom",
-      "settings": {}
+    "health_fitness_nwaecG": {
+      "type": "health-fitness",
+      "blocks": {
+        "item_hhamTP": {
+          "type": "item",
+          "settings": {
+            "block_title": "Block Title",
+            "block_subtext": "This is a description.",
+            "block_text_alignment": "center",
+            "block_font_size": 16,
+            "block_font_style": "normal",
+            "block_font_color": "#000000"
+          }
+        },
+        "item_TfXz9G": {
+          "type": "item",
+          "settings": {
+            "block_title": "Block Title",
+            "block_subtext": "This is a description.",
+            "block_text_alignment": "center",
+            "block_font_size": 16,
+            "block_font_style": "normal",
+            "block_font_color": "#000000"
+          }
+        },
+        "item_AfGtw6": {
+          "type": "item",
+          "settings": {
+            "block_title": "Block Title",
+            "block_subtext": "This is a description.",
+            "block_text_alignment": "center",
+            "block_font_size": 16,
+            "block_font_style": "normal",
+            "block_font_color": "#000000"
+          }
+        },
+        "item_knNiKA": {
+          "type": "item",
+          "settings": {
+            "block_title": "Block Title",
+            "block_subtext": "This is a description.",
+            "block_text_alignment": "center",
+            "block_font_size": 16,
+            "block_font_style": "normal",
+            "block_font_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "item_hhamTP",
+        "item_TfXz9G",
+        "item_AfGtw6",
+        "item_knNiKA"
+      ],
+      "settings": {
+        "title_tag": "h2",
+        "title": "Health and Fitness",
+        "subtitle": "Your health journey starts here.",
+        "font_size": 24,
+        "font_color": "#000000",
+        "text_alignment": "center"
+      }
+    },
+    "video_carousel_C6DNNj": {
+      "type": "video-carousel",
+      "blocks": {
+        "video_3rWGmY": {
+          "type": "video",
+          "settings": {
+            "video_media": "shopify://files/videos/-46be-4abb-a537-bca74f36620b.mp4",
+            "featured_product": "bundle-pr-lotion-starter-kit"
+          }
+        },
+        "video_qPbT3H": {
+          "type": "video",
+          "settings": {
+            "video_media": "shopify://files/videos/-61dd-45dc-96ec-34c9d5e96e27_df7d9070-f186-403e-8021-82bedae01708.mp4",
+            "featured_product": "suplement-grass-fed-whey-protein-isolate-powder"
+          }
+        },
+        "video_3aNLWN": {
+          "type": "video",
+          "settings": {
+            "video_media": "shopify://files/videos/-5c60-4fd6-bd97-5e11b18fd957.mp4",
+            "featured_product": "bundle-pr-lotion-starter-kit"
+          }
+        },
+        "video_9Vkbqm": {
+          "type": "video",
+          "settings": {
+            "video_media": "shopify://files/videos/-5975-42db-b6b9-f4ec19c2db5d.mp4",
+            "featured_product": "suplement-magnesium-l-threonate"
+          }
+        },
+        "video_EHVLKA": {
+          "type": "video",
+          "settings": {
+            "video_media": "shopify://files/videos/-bb38-4e5f-8d0e-3748404fcf3e.mp4",
+            "featured_product": "suplement-omega-3"
+          }
+        },
+        "video_cVxDG8": {
+          "type": "video",
+          "settings": {
+            "video_media": "shopify://files/videos/-b4e0-4ff1-b497-9ddb3e7b4fc0.mp4",
+            "featured_product": "bundles-tongkat-fadogia-60-day-supply"
+          }
+        }
+      },
+      "block_order": [
+        "video_3rWGmY",
+        "video_qPbT3H",
+        "video_3aNLWN",
+        "video_9Vkbqm",
+        "video_EHVLKA",
+        "video_cVxDG8"
+      ],
+      "settings": {
+        "subtitle": "Optional Subtitle",
+        "subtitle_tag": "p",
+        "subtitle_size": 16,
+        "subtitle_bold": false,
+        "subtitle_italic": false,
+        "subtitle_color": "#555555",
+        "title": "Featured Videos",
+        "title_tag": "h2",
+        "title_size": 24,
+        "title_bold": false,
+        "title_italic": false,
+        "title_color": "#000000",
+        "scroll_speed": 40,
+        "video_width": 300,
+        "video_height": 420,
+        "gap": 20
+      }
+    },
+    "product_bundles_tzXBg7": {
+      "type": "product-bundles",
+      "settings": {
+        "selected_collection": "bundles",
+        "custom_title": "Our Featured Products",
+        "custom_text": "Explore our hand-picked selection of products.",
+        "title_tag": "h2",
+        "title_bold": true,
+        "title_size": 24,
+        "title_align": "left"
+      }
+    },
+    "custom_blend_bkQpFR": {
+      "type": "custom-blend",
+      "blocks": {
+        "top_label_nACNMY": {
+          "type": "top_label",
+          "settings": {
+            "label_text": "Whey Based",
+            "label_logo": "shopify://shop_images/Group_38770_3.png"
+          }
+        },
+        "top_label_hfAXXn": {
+          "type": "top_label",
+          "settings": {
+            "label_text": "Whey Based",
+            "label_logo": "shopify://shop_images/Group_38770_3.png"
+          }
+        },
+        "top_label_bGa3Nr": {
+          "type": "top_label",
+          "settings": {
+            "label_text": "Whey Based",
+            "label_logo": "shopify://shop_images/Group_38770_3.png"
+          }
+        },
+        "bottom_column_Kqzpck": {
+          "type": "bottom_column",
+          "settings": {
+            "column_logo": "shopify://shop_images/Group_38770_4.png",
+            "column_title": "Column Title",
+            "column_subtitle": "Column subtitle goes here"
+          }
+        },
+        "bottom_column_YmMtX8": {
+          "type": "bottom_column",
+          "settings": {
+            "column_logo": "shopify://shop_images/Group_38770_4.png",
+            "column_title": "Column Title",
+            "column_subtitle": "Column subtitle goes here"
+          }
+        },
+        "bottom_column_UTpYJU": {
+          "type": "bottom_column",
+          "settings": {
+            "column_logo": "shopify://shop_images/Group_38770_4.png",
+            "column_title": "Column Title",
+            "column_subtitle": "Column subtitle goes here"
+          }
+        }
+      },
+      "block_order": [
+        "top_label_nACNMY",
+        "top_label_hfAXXn",
+        "top_label_bGa3Nr",
+        "bottom_column_Kqzpck",
+        "bottom_column_YmMtX8",
+        "bottom_column_UTpYJU"
+      ],
+      "settings": {
+        "subtitle_text": "Simple & Effective Ingredients",
+        "title_tag": "h1",
+        "title_text": "Customized Protein Powder",
+        "selected_product": "suplement-magnesium-l-threonate",
+        "right_title_tag": "h2",
+        "right_title_text": "Your Custom Blend",
+        "right_title_bold": true,
+        "bottom_title": "Customize Details"
+      }
     },
     "image_banner_ewxLqC": {
       "type": "image-banner",
@@ -275,6 +461,144 @@
         "stack_images_on_mobile": true,
         "show_text_below": true
       }
+    },
+    "custom_article_blog_naWM7K": {
+      "type": "custom-article-blog",
+      "blocks": {
+        "main_article_9RVqfG": {
+          "type": "main_article",
+          "settings": {
+            "image": "shopify://shop_images/c85b1d65f89c30171166c45563e2d09d.jpg",
+            "title": "dasdas",
+            "subtitle": "dsadas",
+            "text_color": "#FFFFFF",
+            "title_size": 24,
+            "subtitle_size": 16,
+            "text_position": "bottom-left"
+          }
+        },
+        "news_JxhPma": {
+          "type": "news",
+          "settings": {
+            "image": "shopify://shop_images/a12ae2d41c82bf0aeb52dd25111e109e.jpg",
+            "title": "dsadas",
+            "subtext": "dsadas",
+            "text": "dsadas"
+          }
+        },
+        "news_aPfPHq": {
+          "type": "news",
+          "settings": {
+            "image": "shopify://shop_images/5da3c62afef7678056d8bd39b7cd6b92.jpg",
+            "title": "dsadas",
+            "subtext": "dsadas",
+            "text": "dsadas"
+          }
+        }
+      },
+      "block_order": [
+        "main_article_9RVqfG",
+        "news_JxhPma",
+        "news_aPfPHq"
+      ],
+      "settings": {
+        "heading_tag": "h2",
+        "title": "",
+        "subtext": "",
+        "view_all_link": "",
+        "text_color": "#000000",
+        "font_size": 24,
+        "alignment": "center"
+      }
+    },
+    "imagen_blog_custom_h7HBaB": {
+      "type": "imagen-blog-custom",
+      "blocks": {
+        "banner_6zHEqj": {
+          "type": "banner",
+          "settings": {
+            "banner_logo_left": "shopify://shop_images/Group_2856.png",
+            "banner_logo_right": "shopify://shop_images/uncmfrt.com_1cd0b8fd-a695-4735-b1cc-7cce0729cec3.png",
+            "button_text": "Follow Us on Instagram"
+          }
+        },
+        "image_4xJHAG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1eedbeee8e2ac3ae1779c55abddedda1.jpg"
+          }
+        },
+        "image_tNjgeX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Instagram.png"
+          }
+        },
+        "image_YjKEAy": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/eda489af3bb195329ed761744130f2c5.jpg"
+          }
+        },
+        "image_pU4MEi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/73629a9dc2bc50aff25b6f4866ea3f74.jpg"
+          }
+        },
+        "image_f8Ae7R": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3cb844d67636c6a0e73fcd9f7eddd115.jpg"
+          }
+        },
+        "image_r7Xjxb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Image_2.png"
+          }
+        },
+        "image_VHGzQG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/dc5e791d0bb0db166122db283583bb7d.jpg"
+          }
+        },
+        "image_rYTMxq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/a6ad1f78192d8dbbe42072501f0fb2bd.jpg"
+          }
+        },
+        "image_LRBQiR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/06ce7cb040ca34b34e18b85f563739cd.jpg"
+          }
+        },
+        "image_jVfFt4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/f2f45c899583bd02757bcf4cf63bb0a0.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "banner_6zHEqj",
+        "image_4xJHAG",
+        "image_tNjgeX",
+        "image_YjKEAy",
+        "image_pU4MEi",
+        "image_f8Ae7R",
+        "image_r7Xjxb",
+        "image_VHGzQG",
+        "image_rYTMxq",
+        "image_LRBQiR",
+        "image_jVfFt4"
+      ],
+      "settings": {
+        "block_border_radius": 8
+      }
     }
   },
   "order": [
@@ -282,8 +606,13 @@
     "text_carrousel_kV7e8R",
     "recomendatios_custom_XDTDkt",
     "costum_coloum_krAYdG",
-    "featured_collection",
-    "clean_suplement_custom_pUnLym",
-    "image_banner_ewxLqC"
+    "custom_product_catalog_ETYFkj",
+    "health_fitness_nwaecG",
+    "video_carousel_C6DNNj",
+    "product_bundles_tzXBg7",
+    "custom_blend_bkQpFR",
+    "image_banner_ewxLqC",
+    "custom_article_blog_naWM7K",
+    "imagen_blog_custom_h7HBaB"
   ]
 }
