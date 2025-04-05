@@ -11,8 +11,15 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "custom_footer_fgjHBH": {
+      "type": "custom-footer",
+      "settings": {
+        "background_color": "#f5f5f5"
+      }
+    },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
@@ -30,6 +37,7 @@
     }
   },
   "order": [
+    "custom_footer_fgjHBH",
     "footer"
   ]
 }
