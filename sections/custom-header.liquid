@@ -27,33 +27,87 @@
         {% endfor %}
       </ul>
     </nav>
+ 
+  
+   
+   <!-- Sex Selector changer + quiz buttom -->
+    <div class="navbar-sex-quiz">
+    <!-- Sex Selector changer -->
+<div class="sex-selector" onclick="toggleSex()">
+  <span id="sex-label" class="sex-label">Male</span>
+  <img id="sex-icon" src="{{ 'man-asset.svg' | asset_url }}" width="" height="" alt="Sex icon" class="sex-icon" />
+</div>
+
 
     <!-- Quiz Button -->
     <div class="navbar-button">
       <a href="#" class="quiz-button">Take the Quiz</a>
     </div>
+  </div>
 
-    <!-- User Button -->
-    <div class="navbar-user">
-      <button class="user-button">
-        <img src="{{ 'User_custom.svg' | asset_url }}" alt="User" width="20" height="20" />
-      </button>
-    </div>
+    <!-- User + Cart Wrapper -->
+<div class="navbar-user-cart">
+  <!-- User Button -->
+  <div class="navbar-user">
+    <button class="user-button">
+      <img src="{{ 'User_custom.svg' | asset_url }}" alt="User" width="20" height="20" />
+    </button>
+  </div>
 
-    <!-- Cart Button -->
-    <div class="navbar-cart">
-      <a href="{{ routes.cart_url }}" class="cart-button">
-        <img src="{{ 'Cart_custom.svg' | asset_url }}" alt="Cart" width="20" height="20" />
-        <span id="cart-count">0</span>
-      </a>
-    </div>
+  <!-- Cart Button -->
+  <div class="navbar-cart">
+    <a href="{{ routes.cart_url }}" class="cart-button">
+      <img src="{{ 'Cart_custom.svg' | asset_url }}" alt="Cart" width="20" height="20" />
+      <span id="cart-count">0</span>
+    </a>
+  </div>
+</div>
     
   </div>
 </section>
 
 <style>
+  .navbar-sex-quiz {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+  }
+  
+
+  .sex-selector {
+    width: 94px;
+    height: 45px;
+    padding: 10px 15px;
+    background: rgba(228, 228, 228, 1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .sex-icon {
+    width: 33px;
+    height: 33px;
+    margin-left: 10px;
+  }
+  
+  .sex-label {
+    color: black;
+    font-weight: 500;
+  }
+  
+  .navbar-user-cart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 30px;
+    gap: 20px;
+  }
+  
   .custom-navbar {
-    width: 1800px;
+    width: 1770px;
     height: 70px;
     position: absolute;
     top: 20px;
@@ -165,6 +219,8 @@
 
   .user-button {
     background: transparent;
+    display: flex;
+    align-items: center;
     border: none;
     font-size: 20px;
     cursor: pointer;
@@ -248,6 +304,25 @@
     updateCartCount();
     document.addEventListener("cart:updated", updateCartCount);
   });
+
+  let isMale = true;
+
+function toggleSex() {
+  const icon = document.getElementById('sex-icon');
+  const label = document.getElementById('sex-label');
+
+  if (isMale) {
+    icon.src = "{{ 'man-asset.svg' | asset_url }}"; // Asegúrate de subir este asset también
+    label.textContent = 'Female';
+  } else {
+    icon.src = "{{ 'man-asset.svg' | asset_url }}";
+    label.textContent = 'Male';
+  }
+
+  isMale = !isMale;
+}
+
+
 </script>
 
 {% schema %}

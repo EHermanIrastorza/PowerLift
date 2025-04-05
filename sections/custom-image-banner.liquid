@@ -12,12 +12,6 @@
       "label": "Banner Image"
     },
     {
-      "type": "text",
-      "id": "banner_alt_text",
-      "label": "Alt Text",
-      "default": "Banner Image"
-    },
-    {
       "type": "select",
       "id": "content_position",
       "label": "Content Position",
@@ -165,51 +159,145 @@
 }
 {% endschema %}
 
-<div class="custom-image-banner-wrapper">
-    <div class="custom-image-banner" style="position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden;">
-        <div class="custom-image-wrapper" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            {% if section.settings.banner_image %}
-                <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="{{ section.settings.banner_alt_text }}" width="100%" height="100%" style="object-fit: cover;">
-            {% else %}
-                <div style="width: 100%; height: 100%; background-color: #f4f4f4; display: flex; align-items: center; justify-content: center; color: #999;">
-                    No image selected
+<div class="custom-image-banner-wrapper" style="background: rgba(255, 255, 255, 1);">
+  <div class="custom-image-banner">
+    <div class="image-card">
+      <div class="custom-image-container">
+        {% if section.settings.banner_image %}
+          <img
+            src="{{ section.settings.banner_image | img_url: 'master' }}" width="" height=""
+            alt="{{ section.settings.banner_alt_text }}"
+            class="banner-image"
+          >
+        {% else %}
+          <div class="no-image">No image selected</div>
+        {% endif %}
+        <div class="custom-banner-content content-position-{{ section.settings.content_position }} text-{{ section.settings.content_alignment }}">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'heading' %}
+                <{{ block.settings.heading_tag }}
+                  class="banner-heading"
+                  style="
+                    font-size: {{ block.settings.heading_font_size }}px;
+                    font-style: {% if block.settings.heading_style == 'italic' %}italic{% else %}normal{% endif %};
+                    font-weight: {% if block.settings.heading_style == 'bold' %}bold{% else %}normal{% endif %};
+                  "
+                >
+                  {{ block.settings.heading_text }}
+                </{{ block.settings.heading_tag }}>
+              {% when 'paragraph' %}
+                <p
+                  class="banner-paragraph"
+                  style="
+                    font-size: {{ block.settings.paragraph_font_size }}px;
+                    font-style: {% if block.settings.paragraph_style == 'italic' %}italic{% else %}normal{% endif %};
+                    font-weight: {% if block.settings.paragraph_style == 'bold' %}bold{% else %}normal{% endif %};
+                  "
+                >
+                  {{ block.settings.paragraph_text }}
+                </p>
+              {% when 'buttons' %}
+                <div class="banner-buttons">
+                  <a href="{{ block.settings.button1_link }}" class="btn">{{ block.settings.button1_text }}</a>
+                  <a href="{{ block.settings.button2_link }}" class="btn">{{ block.settings.button2_text }}</a>
                 </div>
-            {% endif %}
+            {% endcase %}
+          {% endfor %}
         </div>
-        <div class="custom-banner-content" style="
-            position: absolute;
-            {% case section.settings.content_position %}
-                {% when 'top-left' %} top: 10%; left: 10%; {% when 'top-center' %} top: 10%; left: 50%; transform: translateX(-50%); {% when 'top-right' %} top: 10%; right: 10%; {% when 'center-left' %} top: 50%; left: 10%; transform: translateY(-50%); {% when 'center-center' %} top: 50%; left: 50%; transform: translate(-50%, -50%); {% when 'center-right' %} top: 50%; right: 10%; transform: translateY(-50%); {% when 'bottom-left' %} bottom: 10%; left: 10%; {% when 'bottom-center' %} bottom: 10%; left: 50%; transform: translateX(-50%); {% when 'bottom-right' %} bottom: 10%; right: 10%; {% endcase %}
-            text-align: {{ section.settings.content_alignment }};
-            color: white;">
-            {% for block in section.blocks %}
-                {% case block.type %}
-                    {% when 'heading' %}
-                        <{{ block.settings.heading_tag }}>{{ block.settings.heading_text }}</{{ block.settings.heading_tag }}>
-                    {% when 'paragraph' %}
-                        <p>{{ block.settings.paragraph_text }}</p>
-                    {% when 'buttons' %}
-                        <div>
-                            <a href="{{ block.settings.button1_link }}" class="btn">{{ block.settings.button1_text }}</a>
-                            <a href="{{ block.settings.button2_link }}" class="btn">{{ block.settings.button2_text }}</a>
-                        </div>
-                {% endcase %}
-            {% endfor %}
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<style>
-    .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 5px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-    .btn:hover {
-        background-color: #0056b3;
-    }
-</style>
+{% style %}
+.custom-image-banner-wrapper {
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, 1);
+  padding: 40px; /* Keep the padding for the overall section */
+}
+
+.custom-image-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  width: 1520px; /* Maintain fixed width */
+  height: 750px; /* Maintain fixed height */
+  margin: 0 auto; /* Center the banner */
+}
+
+.image-card {
+  /* margin: 40px; Remove margin from the card */
+  width: 100%; /* Make the card take full width of the banner */
+  height: 100%; /* Make the card take full height of the banner */
+  position: relative; /* Needed for absolute positioning of content */
+}
+
+.custom-image-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative; /* Needed for absolute positioning of content */
+}
+
+.custom-image-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  border-radius: 8px;
+}
+
+.custom-banner-content {
+  position: absolute; /* Position content over the image */
+  color: white;
+  z-index: 10; /* Ensure text is above the image */
+}
+
+/* Positioning options from settings */
+.content-position-top-left { top: 10%; left: 10%; }
+.content-position-top-center { top: 10%; left: 50%; transform: translateX(-50%); }
+.content-position-top-right { top: 10%; right: 10%; }
+.content-position-center-left { top: 50%; left: 10%; transform: translateY(-50%); }
+.content-position-center-center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.content-position-center-right { top: 50%; right: 10%; transform: translateY(-50%); }
+.content-position-bottom-left { bottom: 10%; left: 10%; }
+.content-position-bottom-center { bottom: 10%; left: 50%; transform: translateX(-50%); }
+.content-position-bottom-right { bottom: 10%; right: 10%; }
+
+/* Text alignment classes */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+{% endstyle %}
