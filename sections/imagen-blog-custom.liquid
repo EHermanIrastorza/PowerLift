@@ -5,6 +5,18 @@
   "disabled_on": {
     "groups": ["header", "footer"]
   },
+  "settings": [
+    {
+      "type": "range",
+      "id": "block_border_radius",
+      "label": "Border radius de los bloques",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
   "blocks": [
     {
       "type": "image",
@@ -22,15 +34,14 @@
       "name": "Banner",
       "settings": [
         {
-          "type": "text",
-          "id": "banner_text",
-          "label": "Texto del banner",
-          "default": "Sigue nuestro contenido en Instagram"
+          "type": "image_picker",
+          "id": "banner_logo_left",
+          "label": "Logo izquierdo del banner"
         },
         {
           "type": "image_picker",
-          "id": "banner_logo",
-          "label": "Logo del banner"
+          "id": "banner_logo_right",
+          "label": "Logo derecho del banner"
         },
         {
           "type": "text",
@@ -58,11 +69,14 @@
     gap: 15px;
     width: max-content;
   }
+
   .imagen-blog img {
     width: 245px;
     height: 245px;
     object-fit: cover;
+    border-radius: var(--imagen-blog-border-radius, 8px);
   }
+
   .imagen-blog .banner {
     grid-column: span 2;
     width: 500px;
@@ -74,14 +88,28 @@
     background-color: #f3f3f3;
     text-align: center;
     padding: 20px;
+    border-radius: var(--imagen-blog-border-radius, 8px);
   }
-  .imagen-blog .banner img {
-    max-width: 100px;
+
+  .imagen-blog .banner-logos {
+    display: flex;
+    gap: 6px;
+    align-items: center;
     margin-bottom: 10px;
   }
-  .imagen-blog .banner p {
-    margin-bottom: 10px;
+
+  .imagen-blog .banner-logo-left {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
   }
+
+  .imagen-blog .banner-logo-right {
+    width: 148px;
+    height: 24px;
+    object-fit: contain;
+  }
+
   .imagen-blog .banner button {
     padding: 10px 20px;
     background-color: #000;
@@ -91,18 +119,43 @@
   }
 </style>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const borderRadius = {{ section.settings.block_border_radius | default: 8 }};
+    document.documentElement.style.setProperty('--imagen-blog-border-radius', borderRadius + 'px');
+  });
+</script>
+
 <div class="imagen-blog">
   {% for block in section.blocks %}
     {% if block.type == "banner" %}
       <div class="banner">
-        {% if block.settings.banner_logo %}
-          <img src="{{ block.settings.banner_logo | img_url: '100x100' }}" width="", height="" alt="Logo">
-        {% endif %}
-        <p>{{ block.settings.banner_text }}</p>
+        <div class="banner-logos">
+          {% if block.settings.banner_logo_left %}
+            <img
+              src="{{ block.settings.banner_logo_left | img_url: '60x60' }}" width="" height=""
+              alt="Logo izquierdo"
+              class="banner-logo-left"
+            >
+          {% endif %}
+          {% if block.settings.banner_logo_right %}
+            <img
+              src="{{ block.settings.banner_logo_right | img_url: '148x24' }}" width="" height=""
+              alt="Logo derecho"
+              class="banner-logo-right"
+            >
+          {% endif %}
+        </div>
         <button>{{ block.settings.button_text }}</button>
       </div>
     {% elsif block.settings.image %}
-      <img src="{{ block.settings.image | img_url: '245x245' }}" width="", height="" alt="Imagen del blog">
+      <a href="#">
+        <img
+          src="{{ block.settings.image | img_url: '245x245' }}" width="" height=""
+          alt="Imagen del blog"
+          style="border-radius: {{ section.settings.block_border_radius | default: 8 }}px;"
+        >
+      </a>
     {% endif %}
   {% endfor %}
 </div>
