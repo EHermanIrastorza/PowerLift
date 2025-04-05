@@ -331,11 +331,11 @@
       "type": "product-bundles",
       "settings": {
         "selected_collection": "bundles",
-        "custom_title": "Our Featured Products",
-        "custom_text": "Explore our hand-picked selection of products.",
+        "custom_title": "Bundles",
+        "custom_text": "📦 Goals Specific",
         "title_tag": "h2",
         "title_bold": true,
-        "title_size": 24,
+        "title_size": 40,
         "title_align": "left"
       }
     },
