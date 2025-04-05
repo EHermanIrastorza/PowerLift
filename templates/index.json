@@ -407,53 +407,46 @@
         "bottom_title": "Customize Details"
       }
     },
-    "image_banner_ewxLqC": {
-      "type": "image-banner",
+    "custom_image_banner_x8VPrF": {
+      "type": "custom-image-banner",
       "blocks": {
-        "heading_XLQab9": {
+        "heading_MtmAzj": {
           "type": "heading",
           "settings": {
-            "heading": "The Next Generation is Here",
-            "heading_size": "h1"
+            "heading_tag": "h2",
+            "heading_text": "The Next Generation is Here",
+            "heading_font_size": 50,
+            "heading_style": "bold",
+            "heading_color": "#ffffff"
           }
         },
-        "text_AhQhMi": {
-          "type": "text",
+        "paragraph_hUGzYm": {
+          "type": "paragraph",
           "settings": {
-            "text": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I.",
-            "text_style": "body"
+            "paragraph_text": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I.",
+            "paragraph_font_size": 16,
+            "paragraph_style": "normal"
           }
         },
-        "buttons_ki8ULA": {
+        "buttons_j9RQ4N": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Button label",
-            "button_link_1": "",
-            "button_style_secondary_1": false,
-            "button_label_2": "Button label",
-            "button_link_2": "",
-            "button_style_secondary_2": true
+            "button1_text": "Take The Plunge",
+            "button1_link": "",
+            "button2_text": "Dive Deeper",
+            "button2_link": ""
           }
         }
       },
       "block_order": [
-        "heading_XLQab9",
-        "text_AhQhMi",
-        "buttons_ki8ULA"
+        "heading_MtmAzj",
+        "paragraph_hUGzYm",
+        "buttons_j9RQ4N"
       ],
-      "custom_css": [],
       "settings": {
-        "image": "shopify://shop_images/e4c9683702294b62e03a4063cd120030.png",
-        "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "desktop_content_position": "middle-left",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-4",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": true,
-        "show_text_below": true
+        "banner_image": "shopify://shop_images/e4c9683702294b62e03a4063cd120030.png",
+        "content_position": "center-left",
+        "content_alignment": "left"
       }
     },
     "custom_article_blog_naWM7K": {
@@ -605,7 +598,7 @@
     "video_carousel_C6DNNj",
     "product_bundles_tzXBg7",
     "custom_blend_bkQpFR",
-    "image_banner_ewxLqC",
+    "custom_image_banner_x8VPrF",
     "custom_article_blog_naWM7K",
     "imagen_blog_custom_h7HBaB"
   ]
