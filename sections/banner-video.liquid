@@ -1,197 +1,270 @@
 <section class="video-banner">
     <div class="video-container">
-        <video class="background-video" {% if section.settings.autoplay %}autoplay{% endif %} {% if section.settings.loop %}loop{% endif %} muted playsinline>
-            {% if section.settings.video_upload != blank %}
-                <source src="{{ section.settings.video_upload | file_url }}" type="video/mp4">
-            {% else %}
-                <source src="{{ section.settings.video_url }}" type="video/mp4">
-            {% endif %}
-            Tu navegador no soporta la reproducción de videos.
-        </video>
+      <video class="background-video"
+        {% if section.settings.autoplay %}autoplay{% endif %}
+        {% if section.settings.loop %}loop{% endif %}
+        muted playsinline>
+        {% if section.settings.video_upload != blank %}
+          <source src="{{ section.settings.video_upload | file_url }}" type="video/mp4">
+        {% else %}
+          <source src="{{ section.settings.video_url }}" type="video/mp4">
+        {% endif %}
+        Tu navegador no soporta la reproducción de videos.
+      </video>
+  
+      <div class="video-content {{ section.settings.desktop_content_position }}">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'title' %}
+              <div class="video-title-wrapper" style="text-align: {{ block.settings.text_align }};">
+                <div
+                  class="video-title"
+                  style="
+                    color: {{ block.settings.color }};
+                    font-size: {{ block.settings.font_size }}px;
+                    font-style: {% if block.settings.font_style contains 'italic' %}italic{% else %}normal{% endif %};
+                    font-weight: {% if block.settings.font_style contains 'bold' %}bold{% else %}normal{% endif %};
+                  "
+                >
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            {% when 'button' %}
+              <a
+                class="video-button"
+                href="{{ block.settings.link | default: '#' }}"
+              >
+                {{ block.settings.label }}
+              </a>
+          {% endcase %}
+        {% endfor %}
+      </div>
     </div>
-</section>
-
-<style>
-.video-banner {
+  </section>
+  
+  <style>
+  .video-banner {
     width: 100vw;
     height: 100vh;
-}
-
-.video-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .video-container {
     width: 100%;
     height: 100%;
-}
-
-.background-video {
+    position: relative;
+  }
+  
+  .background-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .video-content {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .video-content.top-left    { justify-content: flex-start; align-items: flex-start; }
+  .video-content.top-center  { justify-content: flex-start; align-items: center; }
+  .video-content.top-right   { justify-content: flex-start; align-items: flex-end; }
+  
+  .video-content.middle-left   { justify-content: center; align-items: flex-start; }
+  .video-content.middle-center { justify-content: center; align-items: center; }
+  .video-content.middle-right  { justify-content: center; align-items: flex-end; }
+  
+  .video-content.bottom-left   { justify-content: flex-end; align-items: flex-start; }
+  .video-content.bottom-center { justify-content: flex-end; align-items: center; }
+  .video-content.bottom-right  { justify-content: flex-end; align-items: flex-end; }
+  
+  .video-title-wrapper {
+    width: 840px;
+    height: 166px;
+    gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .video-title {
+    width: 100%;
+    word-wrap: break-word;
+  }
+  
+  .video-button {
+    width: 160px;
+    height: 50px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 1);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 840px) {
+    .video-title-wrapper {
+      width: 100%;
+      height: auto;
+      flex-wrap: wrap;
+    }
+  
+    .video-title {
+      white-space: normal !important;
+    }
+  }
+  </style>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
     var videoElement = document.querySelector("video");
     if (videoElement) {
-        videoElement.loop = {{ section.settings.loop | default: false }};
+      videoElement.loop = {{ section.settings.loop | default: false }};
     }
-});
-</script>
-
-{% schema %}
-{
+  });
+  </script>
+  
+  {% schema %}
+  {
     "name": "Video Banner",
     "settings": [
-        {
-            "type": "text",
-            "id": "video_url",
-            "label": "MP4 Video URL",
-            "default": "https://cdn.shopify.com/s/files/your_video.mp4"
-        },
-        {
-            "type": "video",
-            "id": "video_upload",
-            "label": "Subir Video MP4"
-        },
-        {
-            "type": "checkbox",
-            "id": "autoplay",
-            "label": "Auto Play",
-            "default": true
-        },
-        {
-            "type": "checkbox",
-            "id": "loop",
-            "label": "Loop",
-            "default": true
-        },
-        {
-            "type": "range",
-            "id": "overlay_opacity",
-            "label": "Opacidad de la superposición",
-            "min": 0,
-            "max": 100,
-            "step": 5,
-            "default": 30
-        },
-        {
-            "type": "color",
-            "id": "text_color",
-            "label": "Color del texto",
-            "default": "#ffffff"
-        },
-        {
-            "type": "select",
-            "id": "desktop_content_position",
-            "options": [
-                { "value": "top-left", "label": "Arriba izquierda" },
-                { "value": "top-center", "label": "Arriba centro" },
-                { "value": "top-right", "label": "Arriba derecha" },
-                { "value": "middle-left", "label": "Centro izquierda" },
-                { "value": "middle-center", "label": "Centro" },
-                { "value": "middle-right", "label": "Centro derecha" },
-                { "value": "bottom-left", "label": "Abajo izquierda" },
-                { "value": "bottom-center", "label": "Abajo centro" },
-                { "value": "bottom-right", "label": "Abajo derecha" }
-            ],
-            "default": "middle-center",
-            "label": "Posición del contenido en escritorio"
-        },
-        {
-            "type": "checkbox",
-            "id": "show_text_box",
-            "label": "Mostrar cuadro de texto",
-            "default": true
-        },
-        {
-            "type": "select",
-            "id": "desktop_content_alignment",
-            "options": [
-                { "value": "left", "label": "Izquierda" },
-                { "value": "center", "label": "Centro" },
-                { "value": "right", "label": "Derecha" }
-            ],
-            "default": "center",
-            "label": "Alineación del contenido en escritorio"
-        }
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "MP4 Video URL",
+        "default": "https://cdn.shopify.com/s/files/your_video.mp4"
+      },
+      {
+        "type": "video",
+        "id": "video_upload",
+        "label": "Subir Video MP4"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Auto Play",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "loop",
+        "label": "Loop",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "desktop_content_position",
+        "label": "Posición del contenido en escritorio",
+        "options": [
+          { "value": "top-left", "label": "Arriba izquierda" },
+          { "value": "top-center", "label": "Arriba centro" },
+          { "value": "top-right", "label": "Arriba derecha" },
+          { "value": "middle-left", "label": "Centro izquierda" },
+          { "value": "middle-center", "label": "Centro" },
+          { "value": "middle-right", "label": "Centro derecha" },
+          { "value": "bottom-left", "label": "Abajo izquierda" },
+          { "value": "bottom-center", "label": "Abajo centro" },
+          { "value": "bottom-right", "label": "Abajo derecha" }
+        ],
+        "default": "middle-center"
+      }
     ],
     "blocks": [
-        {
-            "type": "heading",
-            "name": "Encabezado",
-            "limit": 1,
-            "settings": [
-                {
-                    "type": "inline_richtext",
-                    "id": "heading",
-                    "label": "Encabezado"
-                },
-                {
-                    "type": "select",
-                    "id": "heading_size",
-                    "options": [
-                        { "value": "h2", "label": "H2" },
-                        { "value": "h1", "label": "H1" },
-                        { "value": "h0", "label": "H0" },
-                        { "value": "hxl", "label": "HXL" },
-                        { "value": "hxxl", "label": "HXXL" }
-                    ],
-                    "default": "h1",
-                    "label": "Tamaño del encabezado"
-                }
-            ]
-        },
-        {
+      {
+        "type": "title",
+        "name": "Título",
+        "limit": 1,
+        "settings": [
+          {
             "type": "text",
-            "name": "Texto",
-            "limit": 1,
-            "settings": [
-                {
-                    "type": "inline_richtext",
-                    "id": "text",
-                    "label": "Texto"
-                }
-            ]
-        },
-        {
-            "type": "buttons",
-            "name": "Botones",
-            "limit": 1,
-            "settings": [
-                {
-                    "type": "text",
-                    "id": "button_label_1",
-                    "default": "Botón 1",
-                    "label": "Etiqueta del botón 1"
-                },
-                {
-                    "type": "url",
-                    "id": "button_link_1",
-                    "label": "Enlace del botón 1"
-                },
-                {
-                    "type": "text",
-                    "id": "button_label_2",
-                    "default": "Botón 2",
-                    "label": "Etiqueta del botón 2"
-                },
-                {
-                    "type": "url",
-                    "id": "button_link_2",
-                    "label": "Enlace del botón 2"
-                }
-            ]
-        }
+            "id": "text",
+            "label": "Texto del título",
+            "default": "Great things never came from comfort zones."
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "label": "Color del texto",
+            "default": "#ffffff"
+          },
+          {
+            "type": "range",
+            "id": "font_size",
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "Tamaño de fuente (px)",
+            "default": 70
+          },
+          {
+            "type": "select",
+            "id": "font_style",
+            "label": "Estilo de fuente",
+            "options": [
+              { "value": "regular", "label": "Regular" },
+              { "value": "italic", "label": "Italic" },
+              { "value": "bold", "label": "Bold" },
+              { "value": "bold-italic", "label": "Bold Italic" }
+            ],
+            "default": "bold"
+          },
+          {
+            "type": "select",
+            "id": "text_align",
+            "label": "Alineación del texto",
+            "options": [
+              { "value": "left", "label": "Izquierda" },
+              { "value": "center", "label": "Centro" },
+              { "value": "right", "label": "Derecha" }
+            ],
+            "default": "center"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "Botón",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Texto del botón",
+            "default": "Explorar"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Enlace del botón"
+          }
+        ]
+      }
     ],
     "presets": [
-        {
-            "name": "Video Banner",
-            "blocks": [
-                { "type": "heading" },
-                { "type": "text" },
-                { "type": "buttons" }
-            ]
-        }
+      {
+        "name": "Video Banner",
+        "blocks": [
+          { "type": "title" },
+          { "type": "button" }
+        ]
+      }
     ]
-}
-{% endschema %}
+  }
+  {% endschema %}
+  
