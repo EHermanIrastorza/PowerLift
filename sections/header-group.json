@@ -62,7 +62,8 @@
     "custom_header_FaDTpf": {
       "type": "custom-header",
       "settings": {
-        "navigation": ""
+        "logo": "shopify://shop_images/uncmfrt.com_607d374e-192b-42cf-b78b-d8a2757d98e7.png",
+        "navigation": "customer-account-main-menu"
       }
     }
   },

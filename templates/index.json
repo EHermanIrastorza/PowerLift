@@ -12,52 +12,42 @@
     "banner_video_UXhgWR": {
       "type": "banner-video",
       "blocks": {
-        "heading_TijDwc": {
-          "type": "heading",
+        "title_UkAnVM": {
+          "type": "title",
           "settings": {
-            "heading": "Power lifters!",
-            "heading_size": "h1"
+            "text": "Great things never came from comfort zones.",
+            "color": "#ffffff",
+            "font_size": 70,
+            "font_style": "bold",
+            "text_align": "left"
           }
         },
-        "text_NU3qUz": {
-          "type": "text",
+        "button_7HRVRt": {
+          "type": "button",
           "settings": {
-            "text": "Este texto es de prueba"
-          }
-        },
-        "buttons_zrMEwU": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "dsa",
-            "button_link_1": "",
-            "button_label_2": "Botón 2",
-            "button_link_2": ""
+            "label": "Shop now",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "heading_TijDwc",
-        "text_NU3qUz",
-        "buttons_zrMEwU"
+        "title_UkAnVM",
+        "button_7HRVRt"
       ],
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/387801761c5547e6bb228dc51dc262be.mp4",
         "autoplay": true,
         "loop": true,
-        "overlay_opacity": 100,
-        "text_color": "#ffffff",
-        "desktop_content_position": "middle-center",
-        "show_text_box": true,
-        "desktop_content_alignment": "center"
+        "desktop_content_position": "bottom-left"
       }
     },
     "text_carrousel_kV7e8R": {
       "type": "text-carrousel",
       "settings": {
-        "text_1": "aaaa",
-        "text_2": "aaaa",
-        "text_3": "aaa",
-        "text_4": "Fourth Recommendation"
+        "text_1": "Shipped Internationally",
+        "text_2": "High Quality Ingredients",
+        "text_3": "Expert Driven",
+        "text_4": "Independently Certified"
       }
     },
     "recomendatios_custom_XDTDkt": {
@@ -117,50 +107,50 @@
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Sleep",
+            "column_description": "Optimize your sleep patterns. ",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_prmpBQ": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Cognitive Function",
+            "column_description": "Enhance your brain's performance and connectivity",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_Crm93b": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01_2.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Foundational Health",
+            "column_description": "Promoting healthy, natural deep sleep day to day",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_m3pPRy": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01_3.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Athletic Performance",
+            "column_description": "Increase your healthy tissue, muscle, and energy",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_QyWy8T": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01_4.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Hormone Support",
+            "column_description": "Boost your mood, libido, and vitality",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         }
       },
@@ -173,26 +163,26 @@
       ],
       "settings": {
         "title_tag": "h1",
-        "title_text": "Your Title Here",
+        "title_text": "Start with your Goals",
         "title_color": "#000000",
-        "title_size": 30,
+        "title_size": 40,
         "title_alignment": "center",
-        "subtitle_text": "Your subtitle here.",
+        "subtitle_text": "COMFORTABLY UNCOMFORTABLE",
         "column_count": 5,
         "column_gap": 10,
         "column_image_border_radius": 15,
-        "column_text_alignment": "center"
+        "column_text_alignment": "left"
       }
     },
     "custom_product_catalog_ETYFkj": {
       "type": "custom-product-catalog",
       "settings": {
-        "subtitle": "",
+        "subtitle": "🌟 Trending",
         "subtitle_font_size": 16,
-        "title": "",
+        "title": "Supplements",
         "title_tag": "h2",
         "title_bold": true,
-        "title_font_size": 28,
+        "title_font_size": 40,
         "text_align": "center",
         "selected_collection": "suplements"
       }
@@ -203,44 +193,48 @@
         "item_hhamTP": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "We Make It Easy",
+            "block_logo": "shopify://shop_images/Group_38770.png",
+            "block_subtext": "Personalized Solutions & Guidance Mean You Get Just What You Need Nothing More",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         },
         "item_TfXz9G": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "Clean & Effective",
+            "block_logo": "shopify://shop_images/Group_38770_3.png",
+            "block_subtext": "Proven Ingredients, not Artificial, Crafted By Experts For Optimal Effectiveness",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         },
         "item_AfGtw6": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "Your Free Dietitian",
+            "block_logo": "shopify://shop_images/Group_38770_1.png",
+            "block_subtext": "Every Gainful Subscriber Gets Free, 1:1 Access Their Own Registered Dietitian.",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         },
         "item_knNiKA": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "Made For You",
+            "block_logo": "shopify://shop_images/Group_38770_2.png",
+            "block_subtext": "Performance is Personal. Personalized & Customizable Products For Your Needs, Body & Goals",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         }
@@ -253,11 +247,11 @@
       ],
       "settings": {
         "title_tag": "h2",
-        "title": "Health and Fitness",
-        "subtitle": "Your health journey starts here.",
-        "font_size": 24,
+        "title": "Clean Supplements - Made For You",
+        "subtitle": "🧐 Why Health & Fitness",
+        "font_size": 16,
         "font_color": "#000000",
-        "text_alignment": "center"
+        "text_alignment": "left"
       }
     },
     "video_carousel_C6DNNj": {
@@ -315,16 +309,16 @@
         "video_cVxDG8"
       ],
       "settings": {
-        "subtitle": "Optional Subtitle",
+        "subtitle": "Trusted & Proven by Science",
         "subtitle_tag": "p",
         "subtitle_size": 16,
         "subtitle_bold": false,
         "subtitle_italic": false,
         "subtitle_color": "#555555",
-        "title": "Featured Videos",
+        "title": "Real People. Real Results.",
         "title_tag": "h2",
-        "title_size": 24,
-        "title_bold": false,
+        "title_size": 40,
+        "title_bold": true,
         "title_italic": false,
         "title_color": "#000000",
         "scroll_speed": 40,
@@ -337,11 +331,11 @@
       "type": "product-bundles",
       "settings": {
         "selected_collection": "bundles",
-        "custom_title": "Our Featured Products",
-        "custom_text": "Explore our hand-picked selection of products.",
+        "custom_title": "Bundles",
+        "custom_text": "📦 Goals Specific",
         "title_tag": "h2",
         "title_bold": true,
-        "title_size": 24,
+        "title_size": 40,
         "title_align": "left"
       }
     },
@@ -413,53 +407,46 @@
         "bottom_title": "Customize Details"
       }
     },
-    "image_banner_ewxLqC": {
-      "type": "image-banner",
+    "custom_image_banner_x8VPrF": {
+      "type": "custom-image-banner",
       "blocks": {
-        "heading_XLQab9": {
+        "heading_MtmAzj": {
           "type": "heading",
           "settings": {
-            "heading": "The Next Generation is Here",
-            "heading_size": "h1"
+            "heading_tag": "h2",
+            "heading_text": "The Next Generation is Here",
+            "heading_font_size": 50,
+            "heading_style": "bold",
+            "heading_color": "#ffffff"
           }
         },
-        "text_AhQhMi": {
-          "type": "text",
+        "paragraph_hUGzYm": {
+          "type": "paragraph",
           "settings": {
-            "text": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I.",
-            "text_style": "body"
+            "paragraph_text": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I.",
+            "paragraph_font_size": 16,
+            "paragraph_style": "normal"
           }
         },
-        "buttons_ki8ULA": {
+        "buttons_j9RQ4N": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Button label",
-            "button_link_1": "",
-            "button_style_secondary_1": false,
-            "button_label_2": "Button label",
-            "button_link_2": "",
-            "button_style_secondary_2": true
+            "button1_text": "Take The Plunge",
+            "button1_link": "",
+            "button2_text": "Dive Deeper",
+            "button2_link": ""
           }
         }
       },
       "block_order": [
-        "heading_XLQab9",
-        "text_AhQhMi",
-        "buttons_ki8ULA"
+        "heading_MtmAzj",
+        "paragraph_hUGzYm",
+        "buttons_j9RQ4N"
       ],
-      "custom_css": [],
       "settings": {
-        "image": "shopify://shop_images/e4c9683702294b62e03a4063cd120030.png",
-        "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "desktop_content_position": "middle-left",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-4",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": true,
-        "show_text_below": true
+        "banner_image": "shopify://shop_images/e4c9683702294b62e03a4063cd120030.png",
+        "content_position": "center-left",
+        "content_alignment": "left"
       }
     },
     "custom_article_blog_naWM7K": {
@@ -469,9 +456,9 @@
           "type": "main_article",
           "settings": {
             "image": "shopify://shop_images/c85b1d65f89c30171166c45563e2d09d.jpg",
-            "title": "dasdas",
-            "subtitle": "dsadas",
-            "text_color": "#FFFFFF",
+            "title": "Foundational Supplements: Build a Better You",
+            "subtitle": "By Emily Thompson | August 31, 2023",
+            "text_color": "#ffffff",
             "title_size": 24,
             "subtitle_size": 16,
             "text_position": "bottom-left"
@@ -481,18 +468,18 @@
           "type": "news",
           "settings": {
             "image": "shopify://shop_images/a12ae2d41c82bf0aeb52dd25111e109e.jpg",
-            "title": "dsadas",
-            "subtext": "dsadas",
-            "text": "dsadas"
+            "title": "Taming the Fire Within: Everything You Need to Know About Inflammation",
+            "subtext": "Balanced Diet",
+            "text": "By Emily Thompson | August 31, 2023"
           }
         },
         "news_aPfPHq": {
           "type": "news",
           "settings": {
             "image": "shopify://shop_images/5da3c62afef7678056d8bd39b7cd6b92.jpg",
-            "title": "dsadas",
-            "subtext": "dsadas",
-            "text": "dsadas"
+            "title": "Optimize Your Sleep with These 15 Strategies",
+            "subtext": "Balanced Diet",
+            "text": "By Emily Thompson | August 31, 2023"
           }
         }
       },
@@ -611,7 +598,7 @@
     "video_carousel_C6DNNj",
     "product_bundles_tzXBg7",
     "custom_blend_bkQpFR",
-    "image_banner_ewxLqC",
+    "custom_image_banner_x8VPrF",
     "custom_article_blog_naWM7K",
     "imagen_blog_custom_h7HBaB"
   ]
