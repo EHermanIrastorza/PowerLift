@@ -12,43 +12,33 @@
     "banner_video_UXhgWR": {
       "type": "banner-video",
       "blocks": {
-        "heading_TijDwc": {
-          "type": "heading",
+        "title_UkAnVM": {
+          "type": "title",
           "settings": {
-            "heading": "Power lifters!",
-            "heading_size": "h1"
+            "text": "Great things never came from comfort zones.",
+            "color": "#ffffff",
+            "font_size": 70,
+            "font_style": "bold",
+            "text_align": "left"
           }
         },
-        "text_NU3qUz": {
-          "type": "text",
+        "button_7HRVRt": {
+          "type": "button",
           "settings": {
-            "text": "Este texto es de prueba"
-          }
-        },
-        "buttons_zrMEwU": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "dsa",
-            "button_link_1": "",
-            "button_label_2": "Botón 2",
-            "button_link_2": ""
+            "label": "Shop now",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "heading_TijDwc",
-        "text_NU3qUz",
-        "buttons_zrMEwU"
+        "title_UkAnVM",
+        "button_7HRVRt"
       ],
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/387801761c5547e6bb228dc51dc262be.mp4",
         "autoplay": true,
         "loop": true,
-        "overlay_opacity": 100,
-        "text_color": "#ffffff",
-        "desktop_content_position": "middle-center",
-        "show_text_box": true,
-        "desktop_content_alignment": "center"
+        "desktop_content_position": "bottom-left"
       }
     },
     "text_carrousel_kV7e8R": {
@@ -117,50 +107,50 @@
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Sleep",
+            "column_description": "Optimize your sleep patterns. ",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_prmpBQ": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Cognitive Function",
+            "column_description": "Enhance your brain's performance and connectivity",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_Crm93b": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01_2.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Foundational Health",
+            "column_description": "Promoting healthy, natural deep sleep day to day",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_m3pPRy": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01_3.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Athletic Performance",
+            "column_description": "Increase your healthy tissue, muscle, and energy",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         },
         "column_QyWy8T": {
           "type": "column",
           "settings": {
             "column_image": "shopify://shop_images/Image_01_4.png",
-            "column_title": "Column Title",
-            "column_description": "This is a description for the column.",
+            "column_title": "Hormone Support",
+            "column_description": "Boost your mood, libido, and vitality",
             "column_text_color": "#000000",
-            "column_subtext": "Additional information here."
+            "column_subtext": ""
           }
         }
       },
@@ -173,15 +163,15 @@
       ],
       "settings": {
         "title_tag": "h1",
-        "title_text": "Your Title Here",
+        "title_text": "Start with your Goals",
         "title_color": "#000000",
-        "title_size": 30,
+        "title_size": 40,
         "title_alignment": "center",
-        "subtitle_text": "Your subtitle here.",
+        "subtitle_text": "COMFORTABLY UNCOMFORTABLE",
         "column_count": 5,
         "column_gap": 10,
         "column_image_border_radius": 15,
-        "column_text_alignment": "center"
+        "column_text_alignment": "left"
       }
     },
     "custom_product_catalog_ETYFkj": {
@@ -471,7 +461,7 @@
             "image": "shopify://shop_images/c85b1d65f89c30171166c45563e2d09d.jpg",
             "title": "dasdas",
             "subtitle": "dsadas",
-            "text_color": "#FFFFFF",
+            "text_color": "#ffffff",
             "title_size": 24,
             "subtitle_size": 16,
             "text_position": "bottom-left"
