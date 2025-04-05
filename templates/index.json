@@ -177,12 +177,12 @@
     "custom_product_catalog_ETYFkj": {
       "type": "custom-product-catalog",
       "settings": {
-        "subtitle": "",
+        "subtitle": "🌟 Trending",
         "subtitle_font_size": 16,
-        "title": "",
+        "title": "Supplements",
         "title_tag": "h2",
         "title_bold": true,
-        "title_font_size": 28,
+        "title_font_size": 40,
         "text_align": "center",
         "selected_collection": "suplements"
       }
@@ -193,44 +193,48 @@
         "item_hhamTP": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "We Make It Easy",
+            "block_logo": "shopify://shop_images/Group_38770.png",
+            "block_subtext": "Personalized Solutions & Guidance Mean You Get Just What You Need Nothing More",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         },
         "item_TfXz9G": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "Clean & Effective",
+            "block_logo": "shopify://shop_images/Group_38770_3.png",
+            "block_subtext": "Proven Ingredients, not Artificial, Crafted By Experts For Optimal Effectiveness",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         },
         "item_AfGtw6": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "Your Free Dietitian",
+            "block_logo": "shopify://shop_images/Group_38770_1.png",
+            "block_subtext": "Every Gainful Subscriber Gets Free, 1:1 Access Their Own Registered Dietitian.",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         },
         "item_knNiKA": {
           "type": "item",
           "settings": {
-            "block_title": "Block Title",
-            "block_subtext": "This is a description.",
-            "block_text_alignment": "center",
+            "block_title": "Made For You",
+            "block_logo": "shopify://shop_images/Group_38770_2.png",
+            "block_subtext": "Performance is Personal. Personalized & Customizable Products For Your Needs, Body & Goals",
+            "block_text_alignment": "left",
             "block_font_size": 16,
-            "block_font_style": "normal",
+            "block_font_style": "italic",
             "block_font_color": "#000000"
           }
         }
@@ -243,11 +247,11 @@
       ],
       "settings": {
         "title_tag": "h2",
-        "title": "Health and Fitness",
-        "subtitle": "Your health journey starts here.",
-        "font_size": 24,
+        "title": "Clean Supplements - Made For You",
+        "subtitle": "🧐 Why Health & Fitness",
+        "font_size": 16,
         "font_color": "#000000",
-        "text_alignment": "center"
+        "text_alignment": "left"
       }
     },
     "video_carousel_C6DNNj": {
