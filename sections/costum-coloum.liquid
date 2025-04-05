@@ -1,5 +1,83 @@
+<div class="custom-section">
+  <{{ section.settings.title_tag }} class="section-title"
+       style="color: {{ section.settings.title_color }};
+              font-size: {{ section.settings.title_size }}px;
+              text-align: {{ section.settings.title_alignment }};">
+    {{ section.settings.title_text }}
+  </{{ section.settings.title_tag }}>
+
+  {% if section.settings.subtitle_text != blank %}
+    <p class="section-subtitle" style="text-align: {{ section.settings.title_alignment }};">
+      {{ section.settings.subtitle_text }}
+    </p>
+  {% endif %}
+
+  <div class="columns" style="gap: {{ section.settings.column_gap }}px;">
+    {% for block in section.blocks %}
+      <div class="column" style="text-align: {{ section.settings.column_text_alignment }};">
+        {% if block.settings.column_image %}
+          <img src="{{ block.settings.column_image | img_url: 'medium' }}"
+               alt="{{ block.settings.column_title }}" width="" height=""
+               class="column-image"
+               style="--image-radius: {{ section.settings.column_image_border_radius }}px;" />
+        {% endif %}
+        <h2 class="column-title" style="color: {{ block.settings.column_text_color }};">
+          {{ block.settings.column_title }}
+        </h2>
+        <p class="column-description" style="color: {{ block.settings.column_text_color }};">
+          {{ block.settings.column_description }}
+        </p>
+        {% if block.settings.column_subtext != blank %}
+          <p class="column-subtext" style="color: {{ block.settings.column_text_color }};">
+            {{ block.settings.column_subtext }}
+          </p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .custom-section {
+    padding: 20px;
+  }
+
+  .custom-section .columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .custom-section .column {
+    width: 288px;
+    margin-bottom: 20px;
+  }
+
+  .custom-section .column-image {
+    width: 100%;
+    height: 392px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--image-radius);
+  }
+
+  .custom-section .section-title,
+  .custom-section .section-subtitle,
+  .custom-section .column-title,
+  .custom-section .column-description,
+  .custom-section .column-subtext {
+    word-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .custom-section .section-subtitle {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+</style>
+
 {% schema %}
-  {
+{
   "name": "Custom image column",
   "tag": "section",
   "class": "section",
@@ -140,36 +218,3 @@
   ]
 }
 {% endschema %}
-
-<div class="custom-section">
-  <{{ section.settings.title_tag }} class="section-title" style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px; text-align: {{ section.settings.title_alignment }};">
-    {{ section.settings.title_text }}
-  </{{ section.settings.title_tag }}>
-
-  {% if section.settings.subtitle_text != blank %}
-    <p class="section-subtitle" style="text-align: {{ section.settings.title_alignment }};">
-      {{ section.settings.subtitle_text }}
-    </p>
-  {% endif %}
-
-  <div class="columns" style="display: flex; gap: {{ section.settings.column_gap }}px; flex-wrap: wrap; justify-content: center;">
-    {% for block in section.blocks %}
-      <div class="column" style="text-align: {{ section.settings.column_text_alignment }};">
-        {% if block.settings.column_image %}
-          <img src="{{ block.settings.column_image | img_url: 'medium' }}" width="" height="" alt="{{ block.settings.column_title }}" class="column-image" style="width: 288px; height: 392px; object-fit: cover; display: block; border-radius: {{ section.settings.column_image_border_radius }}px;" />
-        {% endif %}
-        <h2 class="column-title" style="color: {{ block.settings.column_text_color }};">
-          {{ block.settings.column_title }}
-        </h2>
-        <p class="column-description" style="color: {{ block.settings.column_text_color }};">
-          {{ block.settings.column_description }}
-        </p>
-        {% if block.settings.column_subtext != blank %}
-          <p class="column-subtext" style="color: {{ block.settings.column_text_color }};">
-            {{ block.settings.column_subtext }}
-          </p>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
-</div>
