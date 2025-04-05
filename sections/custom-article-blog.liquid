@@ -1,15 +1,17 @@
+
 {% schema %}
 {
-  "name": "Custom Article Blog",
-  "class": "section",
+  "name": "custom article blog",
+  "tag": "section",
+  "class": "section custom-article-blog",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
     {
       "type": "select",
-      "id": "title_tag",
-      "label": "Title Tag",
+      "id": "heading_tag",
+      "label": "Heading tag",
       "options": [
         { "value": "h1", "label": "H1" },
         { "value": "h2", "label": "H2" },
@@ -19,64 +21,102 @@
       "default": "h2"
     },
     {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
       "type": "range",
       "id": "font_size",
-      "label": "Font Size",
+      "label": "Font size (px)",
       "min": 12,
-      "max": 36,
+      "max": 48,
       "step": 1,
-      "default": 16
+      "default": 24
     },
     {
       "type": "select",
-      "id": "text_align",
-      "label": "Text Alignment",
+      "id": "alignment",
+      "label": "Text alignment",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
       ],
-      "default": "left"
-    },
-    {
-      "type": "color",
-      "id": "font_color",
-      "label": "Font Color",
-      "default": "#000000"
-    },
-    {
-      "type": "text",
-      "id": "subtext",
-      "label": "Subtext",
-      "default": "This is the subtext"
-    },
-    {
-      "type": "url",
-      "id": "view_all_link",
-      "label": "View All Link"
+      "default": "center"
     }
   ],
   "blocks": [
     {
       "type": "main_article",
-      "name": "Main Article",
+      "name": "Main article",
       "settings": [
         {
           "type": "image_picker",
-          "id": "main_image",
+          "id": "image",
           "label": "Main Image"
         },
         {
           "type": "text",
-          "id": "main_title",
-          "label": "Title",
-          "default": "Main Article Title"
+          "id": "title",
+          "label": "Title"
         },
         {
           "type": "text",
-          "id": "main_subtitle",
-          "label": "Subtitle",
-          "default": "Subtitle here"
+          "id": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Title font size (px)",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size",
+          "label": "Subtitle font size (px)",
+          "min": 12,
+          "max": 36,
+          "step": 1,
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "options": [
+            { "value": "top-left", "label": "Top Left" },
+            { "value": "top-right", "label": "Top Right" },
+            { "value": "bottom-left", "label": "Bottom Left" },
+            { "value": "bottom-right", "label": "Bottom Right" }
+          ],
+          "default": "bottom-left"
         }
       ]
     },
@@ -86,20 +126,23 @@
       "settings": [
         {
           "type": "image_picker",
-          "id": "news_image",
+          "id": "image",
           "label": "News Image"
         },
         {
           "type": "text",
-          "id": "news_title",
-          "label": "Title",
-          "default": "News Title"
+          "id": "title",
+          "label": "Title"
         },
         {
           "type": "text",
-          "id": "news_subtext",
-          "label": "Subtext",
-          "default": "News subtext here"
+          "id": "subtext",
+          "label": "Subtext"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
         }
       ]
     }
@@ -116,3 +159,136 @@
   ]
 }
 {% endschema %}
+
+<div class="custom-article-blog-wrapper" style="text-align: {{ section.settings.alignment }}; color: {{ section.settings.text_color }};">
+  <{{ section.settings.heading_tag }} style="font-size: {{ section.settings.font_size }}px;">
+    {{ section.settings.title }}
+  </{{ section.settings.heading_tag }}>
+  <p>{{ section.settings.subtext }}</p>
+  {% if section.settings.view_all_link != blank %}
+    <a class="view-all" href="{{ section.settings.view_all_link }}">View All</a>
+  {% endif %}
+
+  <div class="custom-article-blog-grid">
+    <div class="main-article-wrapper">
+      {% for block in section.blocks %}
+        {% if block.type == 'main_article' %}
+          <div class="main-article">
+            {% if block.settings.image %}
+              <div class="main-article-image" style="background-image: url({{ block.settings.image | image_url: width: 800 }});">
+                <div class="main-article-text {{ block.settings.text_position }}">
+                  <h2 style="font-size: {{ block.settings.title_size }}px; font-weight: bold; color: {{ block.settings.text_color }};">
+                    {{ block.settings.title }}
+                  </h2>
+                  <p style="font-size: {{ block.settings.subtitle_size }}px; color: {{ block.settings.text_color }};">
+                    {{ block.settings.subtitle }}
+                  </p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="news-article-wrapper">
+      {% for block in section.blocks %}
+        {% if block.type == 'news' %}
+          <div class="news-article">
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | image_url: width: 300 }}" width="300" height="215" alt="{{ block.settings.title }}" />
+            {% endif %}
+            <div class="news-content">
+              <h3 style="font-weight: bold;">{{ block.settings.title }}</h3>
+              <p>{{ block.settings.subtext }}</p>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.custom-article-blog-wrapper {
+  padding: 40px 20px;
+}
+
+.custom-article-blog-wrapper .view-all {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+.custom-article-blog-grid {
+  display: flex;
+  gap: 5px;
+  margin-top: 30px;
+}
+
+.main-article-wrapper {
+  flex: 1;
+}
+
+.news-article-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.main-article-image {
+  width: 800px;
+  height: 450px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.main-article-text {
+  position: absolute;
+  padding: 20px;
+}
+
+.main-article-text.top-left {
+  top: 0;
+  left: 0;
+}
+.main-article-text.top-right {
+  top: 0;
+  right: 0;
+}
+.main-article-text.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+.main-article-text.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.news-article {
+  width: 100%;
+  height: 215px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.news-article img {
+  width: 300px;
+  height: 215px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.news-content h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+</style>
