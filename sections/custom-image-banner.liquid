@@ -82,6 +82,11 @@
             { "value": "italic", "label": "Italic" }
           ],
           "default": "normal"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading Color"
         }
       ]
     },
@@ -182,6 +187,7 @@
                     font-size: {{ block.settings.heading_font_size }}px;
                     font-style: {% if block.settings.heading_style == 'italic' %}italic{% else %}normal{% endif %};
                     font-weight: {% if block.settings.heading_style == 'bold' %}bold{% else %}normal{% endif %};
+                    color: {{ block.settings.heading_color }};
                   "
                 >
                   {{ block.settings.heading_text }}
@@ -199,8 +205,16 @@
                 </p>
               {% when 'buttons' %}
                 <div class="banner-buttons">
-                  <a href="{{ block.settings.button1_link }}" class="btn">{{ block.settings.button1_text }}</a>
-                  <a href="{{ block.settings.button2_link }}" class="btn">{{ block.settings.button2_text }}</a>
+                  {% if block.settings.button1_text != blank %}
+                    <a href="{{ block.settings.button1_link }}" class="btn btn--primary">
+                      {{ block.settings.button1_text }}
+                    </a>
+                  {% endif %}
+                  {% if block.settings.button2_text != blank %}
+                    <a href="{{ block.settings.button2_link }}" class="btn btn--secondary">
+                      {{ block.settings.button2_text }}
+                    </a>
+                  {% endif %}
                 </div>
             {% endcase %}
           {% endfor %}
@@ -228,9 +242,8 @@
 }
 
 .image-card {
-  /* margin: 40px; Remove margin from the card */
-  width: 100%; /* Make the card take full width of the banner */
-  height: 100%; /* Make the card take full height of the banner */
+  width: 100%;
+  height: 100%;
   position: relative; /* Needed for absolute positioning of content */
 }
 
@@ -267,7 +280,7 @@
 
 .custom-banner-content {
   position: absolute; /* Position content over the image */
-  color: white;
+  color: white; /* Default text color */
   z-index: 10; /* Ensure text is above the image */
 }
 
@@ -287,17 +300,41 @@
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 5px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+.banner-buttons {
+  display: flex;
+  gap: 10px; /* Add gap between buttons */
 }
 
-.btn:hover {
-  background-color: #0056b3;
+.btn {
+  display: inline-flex; /* Use flex to control width and height */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  border-radius: 8px;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 16px; /* Adjust font size as needed */
+}
+
+.btn--primary {
+  width: 190px;
+  height: 50px;
+  background: rgba(255, 255, 255, 1);
+  color: rgba(27, 31, 35, 1);
+}
+
+.btn--secondary {
+  width: 190px;
+  height: 50px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.btn--primary:hover {
+  opacity: 0.9; /* Add a slight hover effect */
+}
+
+.btn--secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Add a slight hover background */
 }
 {% endstyle %}
