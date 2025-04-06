@@ -95,6 +95,7 @@
     text-align: center;
     padding: 20px;
     border-radius: var(--imagen-blog-border-radius, 8px);
+    z-index: 2;
   }
 
   .imagen-blog .banner-logos {
@@ -122,6 +123,32 @@
     color: #fff;
     border: none;
     cursor: pointer;
+  }
+
+  /* ===== MEDIA QUERY ===== */
+  @media screen and (max-width: 768px) {
+    .imagen-blog {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 300px;
+      padding: 20px;
+    }
+
+    .imagen-blog a {
+      display: none !important;
+    }
+
+    .imagen-blog img:not(.banner-logo-left):not(.banner-logo-right) {
+      display: none !important;
+    }
+
+    .imagen-blog .banner {
+      width: 90%;
+      max-width: 500px;
+      height: auto;
+    }
   }
 </style>
 
