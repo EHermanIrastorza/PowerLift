@@ -490,12 +490,12 @@
       ],
       "settings": {
         "heading_tag": "h2",
-        "title": "",
-        "subtext": "",
-        "view_all_link": "",
+        "title": "Latest Article",
+        "subtext": "✍️ Blogs",
+        "view_all_link": "shopify://blogs/news",
         "text_color": "#000000",
-        "font_size": 24,
-        "alignment": "center"
+        "font_size": 40,
+        "alignment": "left"
       }
     },
     "imagen_blog_custom_h7HBaB": {
