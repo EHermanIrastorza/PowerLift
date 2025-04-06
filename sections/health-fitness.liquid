@@ -132,9 +132,9 @@
 <div class="health-fitness-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.font_color }}; font-size: {{ section.settings.font_size }}px;">
   <p>{{ section.settings.subtitle }}</p>
   <{{ section.settings.title_tag }}>{{ section.settings.title }}</{{ section.settings.title_tag }}>
-  <div class="blocks-container" style="display: flex; gap: 20px;">
+  <div class="blocks-container">
     {% for block in section.blocks %}
-      <div class="block-item" style="flex: 1; text-align: {{ block.settings.block_text_alignment }}; color: {{ block.settings.block_font_color }}; font-size: {{ block.settings.block_font_size }}px; font-style: {{ block.settings.block_font_style }};">
+      <div class="block-item" style="text-align: {{ block.settings.block_text_alignment }}; color: {{ block.settings.block_font_color }}; font-size: {{ block.settings.block_font_size }}px; font-style: {{ block.settings.block_font_style }};">
         {% if block.settings.block_logo %}
           <img src="{{ block.settings.block_logo | img_url: 'medium' }}" width="" height="" alt="{{ block.settings.block_title }}">
         {% endif %}
@@ -149,11 +149,38 @@
 .health-fitness-section {
   padding: 40px;
 }
+
 .blocks-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
+
 .block-item {
   text-align: center;
+  flex: 1 1 22%;
+  transition: all 0.3s ease;
+}
+
+.block-item img {
+  max-width: 100%;
+  transition: transform 0.3s ease;
+}
+
+/* Responsive: cuando el ancho es menor a 768px */
+@media screen and (max-width: 768px) {
+  .block-item h3,
+  .block-item p {
+    display: none;
+  }
+
+  .block-item img {
+    transform: scale(1.1);
+  }
+
+  .block-item {
+    flex: 1 1 45%;
+  }
 }
 {% endstyle %}

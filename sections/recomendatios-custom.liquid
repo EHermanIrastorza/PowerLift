@@ -29,26 +29,24 @@
 }
 {% endschema %}
 
-<section class="recommendations-section" style="background-color: rgba(246, 246, 245, 1); height: 120px; display: flex; flex-direction: row; align-items: center; justify-content: center;">
-<div class= "recomendations-text-container">
-  
-  <div class="text-container">
-    <p class="recommendations-text">#1 Doctor Recommended</p>
+<section class="recommendations-section">
+  <div class="recomendations-text-container">
+    <div class="text-container">
+      <p class="recommendations-text">#1 Doctor Recommended</p>
+    </div>
+    <div class="reviews-info">
+      {% for i in (1..5) %}
+        <img src="{{ 'star-golden.svg' | asset_url }}" alt="Star {{ i }}" width="" height="" class="star-rating" />
+      {% endfor %}
+      <p class="reviews-text">4.8/5 (1,200 reviews)</p>
+    </div>
   </div>
-  
-  <div class="reviews-info">
-    {% for i in (1..5) %}
-      <img src="{{ 'star-golden.svg' | asset_url }}" height="" width="" alt="Star {{ i }}" class="star-rating" />
-    {% endfor %}
-    <p class="reviews-text">4.8/5 (1,200 reviews)</p>
-  </div>
-</div>
 
   <!-- Divider -->
   <hr class="vertical-divider" />
-  
+
   <!-- Image Block Section -->
-  <div class="image-block-section" style="display: flex; flex-direction: row; gap: 20px; justify-content: center; flex-wrap: wrap;">
+  <div class="image-block-section">
     {% for block in section.blocks %}
       {% if block.settings.image_upload %}
         <div class="image-container">
@@ -61,12 +59,13 @@
 
 <style>
   .recommendations-section {
+    background-color: rgba(246, 246, 245, 1);
+    height: 120px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 120px;
-    padding-left: 30px; 
+    padding-left: 30px;
   }
 
   .recomendations-text-container {
@@ -85,49 +84,16 @@
     justify-content: center;
     gap: 10px;
     border-radius: 8px;
-    border: 1px solid transparent;
     padding: 14px;
     background: rgba(0, 0, 0, 0.1);
     margin-right: 20px;
-    border: 1px solid
+    border: 1px solid transparent;
   }
 
   .recommendations-text {
     color: black;
     font-size: 14px;
     margin: 0;
-  }
-
-  .vertical-divider {
-    border: none;
-    border-left: 2px solid rgba(27, 31, 35, 0.1); /* Black vertical line */
-    height: 50px; /* Height of the vertical line */
-    margin-left: 20px; /* Space before the divider */
-  }
-
-  .image-block-section {
-    display: flex;
-    flex-direction: row; /* Flex row for images */
-    justify-content: center; /* Evenly space the image divs */
-    gap: 20px;
-    flex-wrap: wrap; /* Allow images to wrap to the next row if needed */
-    flex-grow: 1; /* Allow this section to grow and fill available space */
-  }
-
-  .image-container {
-    width: 120px; /* Container width */
-    height: 40px; /* Container height */
-    border-radius: 8px; /* Rounded corners */
-    display: flex;
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
-    background-color: white; /* White background for the image container */
-    overflow: hidden;
-  }
-
-  .recommendation-image {
-    width: 70.42px; /* Image width */
-    height: 15.52px; /* Image height */
   }
 
   .reviews-info {
@@ -138,16 +104,65 @@
     height: 20px;
     margin-top: 8px;
   }
-  
+
   .star-rating {
     height: 16px;
     width: auto;
   }
-  
+
   .reviews-text {
     font-size: 14px;
     color: black;
     margin: 0;
   }
-  
+
+  .vertical-divider {
+    border: none;
+    border-left: 2px solid rgba(27, 31, 35, 0.1);
+    height: 50px;
+    margin-left: 20px;
+  }
+
+  .image-block-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-grow: 1;
+  }
+
+  .image-container {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    overflow: hidden;
+  }
+
+  .recommendation-image {
+    width: 70.42px;
+    height: 15.52px;
+  }
+
+  /* Responsive: hide blocks and hr on small screens */
+  @media only screen and (max-width: 768px) {
+    .vertical-divider,
+    .image-block-section {
+      display: none;
+    }
+
+    .recommendations-section {
+      flex-direction: column;
+      height: auto;
+      padding: 20px 10px;
+    }
+
+    .recomendations-text-container {
+      gap: 6px;
+    }
+  }
 </style>

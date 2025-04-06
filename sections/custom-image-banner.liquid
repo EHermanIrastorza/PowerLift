@@ -164,7 +164,7 @@
 }
 {% endschema %}
 
-<div class="custom-image-banner-wrapper" style="background: rgba(255, 255, 255, 1);">
+<div class="custom-image-banner-wrapper">
   <div class="custom-image-banner">
     <div class="image-card">
       <div class="custom-image-container">
@@ -228,23 +228,23 @@
 .custom-image-banner-wrapper {
   display: flex;
   justify-content: center;
-  background: rgba(255, 255, 255, 1);
-  padding: 40px; /* Keep the padding for the overall section */
+  background: #fff;
+  padding: 40px;
 }
 
 .custom-image-banner {
   position: relative;
   overflow: hidden;
   border-radius: 8px;
-  width: 1520px; /* Maintain fixed width */
-  height: 750px; /* Maintain fixed height */
-  margin: 0 auto; /* Center the banner */
+  width: 1520px;
+  height: 750px;
+  margin: 0 auto;
 }
 
 .image-card {
   width: 100%;
   height: 100%;
-  position: relative; /* Needed for absolute positioning of content */
+  position: relative;
 }
 
 .custom-image-container {
@@ -252,12 +252,7 @@
   height: 100%;
   border-radius: 8px;
   overflow: hidden;
-  position: relative; /* Needed for absolute positioning of content */
-}
-
-.custom-image-wrapper {
-  width: 100%;
-  height: 100%;
+  position: relative;
 }
 
 .banner-image {
@@ -279,12 +274,11 @@
 }
 
 .custom-banner-content {
-  position: absolute; /* Position content over the image */
-  color: white; /* Default text color */
-  z-index: 10; /* Ensure text is above the image */
+  position: absolute;
+  color: white;
+  z-index: 10;
 }
 
-/* Positioning options from settings */
 .content-position-top-left { top: 10%; left: 10%; }
 .content-position-top-center { top: 10%; left: 50%; transform: translateX(-50%); }
 .content-position-top-right { top: 10%; right: 10%; }
@@ -295,46 +289,75 @@
 .content-position-bottom-center { bottom: 10%; left: 50%; transform: translateX(-50%); }
 .content-position-bottom-right { bottom: 10%; right: 10%; }
 
-/* Text alignment classes */
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
 .banner-buttons {
   display: flex;
-  gap: 10px; /* Add gap between buttons */
+  gap: 10px;
 }
 
 .btn {
-  display: inline-flex; /* Use flex to control width and height */
-  justify-content: center; /* Center text horizontally */
-  align-items: center; /* Center text vertically */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 8px;
   padding: 10px;
   text-decoration: none;
-  font-size: 16px; /* Adjust font size as needed */
+  font-size: 16px;
 }
 
 .btn--primary {
   width: 190px;
   height: 50px;
-  background: rgba(255, 255, 255, 1);
-  color: rgba(27, 31, 35, 1);
+  background: #fff;
+  color: #1b1f23;
 }
 
 .btn--secondary {
   width: 190px;
   height: 50px;
   background-color: transparent;
-  color: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(255, 255, 255, 1);
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 .btn--primary:hover {
-  opacity: 0.9; /* Add a slight hover effect */
+  opacity: 0.9;
 }
 
 .btn--secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Add a slight hover background */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ------------------- RESPONSIVE ------------------- */
+@media (max-width: 768px) {
+  .custom-image-banner {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+
+  .banner-image {
+    height: auto;
+    object-fit: contain;
+  }
+
+  .banner-heading {
+    font-size: 20px !important;
+  }
+
+  .banner-paragraph {
+  display: none !important;
+}
+
+.banner-buttons {
+  display: none !important;
+}
+
+  .banner-paragraph {
+    display: none !important;
+  }
 }
 {% endstyle %}

@@ -62,12 +62,18 @@
 {% endschema %}
 
 <style>
+  .imagen-blog-wrapper {
+    width: 100vw;
+    overflow-x: auto;
+  }
+
   .imagen-blog {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, auto);
     gap: 15px;
     width: max-content;
+    margin: 0 auto;
   }
 
   .imagen-blog img {
@@ -126,36 +132,38 @@
   });
 </script>
 
-<div class="imagen-blog">
-  {% for block in section.blocks %}
-    {% if block.type == "banner" %}
-      <div class="banner">
-        <div class="banner-logos">
-          {% if block.settings.banner_logo_left %}
-            <img
-              src="{{ block.settings.banner_logo_left | img_url: '60x60' }}" width="" height=""
-              alt="Logo izquierdo"
-              class="banner-logo-left"
-            >
-          {% endif %}
-          {% if block.settings.banner_logo_right %}
-            <img
-              src="{{ block.settings.banner_logo_right | img_url: '148x24' }}" width="" height=""
-              alt="Logo derecho"
-              class="banner-logo-right"
-            >
-          {% endif %}
+<div class="imagen-blog-wrapper">
+  <div class="imagen-blog">
+    {% for block in section.blocks %}
+      {% if block.type == "banner" %}
+        <div class="banner">
+          <div class="banner-logos">
+            {% if block.settings.banner_logo_left %}
+              <img
+                src="{{ block.settings.banner_logo_left | img_url: '60x60' }}" width="" height=""
+                alt="Logo izquierdo"
+                class="banner-logo-left"
+              >
+            {% endif %}
+            {% if block.settings.banner_logo_right %}
+              <img
+                src="{{ block.settings.banner_logo_right | img_url: '148x24' }}" width="" height=""
+                alt="Logo derecho"
+                class="banner-logo-right"
+              >
+            {% endif %}
+          </div>
+          <button>{{ block.settings.button_text }}</button>
         </div>
-        <button>{{ block.settings.button_text }}</button>
-      </div>
-    {% elsif block.settings.image %}
-      <a href="#">
-        <img
-          src="{{ block.settings.image | img_url: '245x245' }}" width="" height=""
-          alt="Imagen del blog"
-          style="border-radius: {{ section.settings.block_border_radius | default: 8 }}px;"
-        >
-      </a>
-    {% endif %}
-  {% endfor %}
+      {% elsif block.settings.image %}
+        <a href="#">
+          <img
+            src="{{ block.settings.image | img_url: '245x245' }}" width="" height=""
+            alt="Imagen del blog"
+            style="border-radius: {{ section.settings.block_border_radius | default: 8 }}px;"
+          >
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>

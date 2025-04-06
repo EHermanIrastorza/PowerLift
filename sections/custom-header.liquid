@@ -1,11 +1,16 @@
 <section class="custom-navbar">
   <div class="navbar-container">
 
+    <!-- Hamburger Menu -->
+    <button class="hamburger-button" onclick="toggleMobileMenu()">
+      ☰
+    </button>
+
     <!-- Logo -->
     <div class="navbar-logo">
       <a href="{{ shop.url }}">
         {% if section.settings.logo != blank %}
-          <img src="{{ section.settings.logo | image_url }}" width="120" height="40" alt="{{ shop.name }}" class="navbar-logo-img" />
+          <img src="{{ section.settings.logo | image_url }}" width="" height="" alt="{{ shop.name }}" class="navbar-logo-img" />
         {% endif %}
       </a>
     </div>
@@ -27,87 +32,55 @@
         {% endfor %}
       </ul>
     </nav>
- 
-  
-   
-   <!-- Sex Selector changer + quiz buttom -->
+
+    <!-- Sex Selector changer + quiz button -->
     <div class="navbar-sex-quiz">
-    <!-- Sex Selector changer -->
-<div class="sex-selector" onclick="toggleSex()">
-  <span id="sex-label" class="sex-label">Male</span>
-  <img id="sex-icon" src="{{ 'man-asset.svg' | asset_url }}" width="" height="" alt="Sex icon" class="sex-icon" />
-</div>
+      <!-- Sex Selector -->
+      <div class="sex-selector" onclick="toggleSex()">
+        <span id="sex-label" class="sex-label">Male</span>
+        <img id="sex-icon" src="{{ 'man-asset.svg' | asset_url }}" width="" height="" alt="Sex icon" class="sex-icon" />
+      </div>
 
-
-    <!-- Quiz Button -->
-    <div class="navbar-button">
-      <a href="#" class="quiz-button">Take the Quiz</a>
+      <!-- Quiz Button -->
+      <div class="navbar-button">
+        <a href="#" class="quiz-button">Take the Quiz</a>
+      </div>
     </div>
-  </div>
 
     <!-- User + Cart Wrapper -->
-<div class="navbar-user-cart">
-  <!-- User Button -->
-  <div class="navbar-user">
-    <button class="user-button">
-      <img src="{{ 'User_custom.svg' | asset_url }}" alt="User" width="20" height="20" />
-    </button>
+    <div class="navbar-user-cart">
+      <!-- User Button -->
+      <div class="navbar-user">
+        <button class="user-button">
+          <img src="{{ 'User_custom.svg' | asset_url }}" alt="User" width="20" height="20" />
+        </button>
+      </div>
+
+      <!-- Cart Button -->
+      <div class="navbar-cart">
+        <a href="{{ routes.cart_url }}" class="cart-button">
+          <img src="{{ 'Cart_custom.svg' | asset_url }}" alt="Cart" width="20" height="20" />
+          <span id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Cart Button -->
-  <div class="navbar-cart">
-    <a href="{{ routes.cart_url }}" class="cart-button">
-      <img src="{{ 'Cart_custom.svg' | asset_url }}" alt="Cart" width="20" height="20" />
-      <span id="cart-count">0</span>
-    </a>
-  </div>
-</div>
-    
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <ul class="mobile-menu-links">
+      {% for link in section.settings.navigation.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
   </div>
 </section>
 
 <style>
-  .navbar-sex-quiz {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
-  }
-  
-
-  .sex-selector {
-    width: 94px;
-    height: 45px;
-    padding: 10px 15px;
-    background: rgba(228, 228, 228, 1);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .sex-icon {
-    width: 33px;
-    height: 33px;
-    margin-left: 10px;
-  }
-  
-  .sex-label {
-    color: black;
-    font-weight: 500;
-  }
-  
-  .navbar-user-cart {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 30px;
-    gap: 20px;
-  }
-  
   .custom-navbar {
-    width: 1770px;
+    width: 100%;
+    max-width: 1770px;
     height: 70px;
     position: absolute;
     top: 20px;
@@ -117,7 +90,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding-left: 20px;
+    padding-right: 40px;
+    z-index: 100;
   }
 
   .navbar-container {
@@ -125,23 +100,19 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
   }
 
   .navbar-logo-img {
-    width: auto;
-    height: auto;
-    max-height: none;
-    max-width: none;
+    max-height: 40px;
   }
 
   .navbar-menu {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    gap: 20px;
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 20px;
   }
 
   .navbar-menu li a {
@@ -200,6 +171,34 @@
     cursor: pointer;
   }
 
+  .navbar-sex-quiz {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sex-selector {
+    width: 94px;
+    height: 45px;
+    padding: 10px 15px;
+    background: rgba(228, 228, 228, 1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .sex-icon {
+    width: 33px;
+    height: 33px;
+    margin-left: 10px;
+  }
+
+  .sex-label {
+    color: black;
+    font-weight: 500;
+  }
+
   .navbar-button {
     margin-left: 20px;
   }
@@ -213,8 +212,10 @@
     font-weight: bold;
   }
 
-  .navbar-user {
-    margin-left: 15px;
+  .navbar-user-cart {
+    display: flex;
+    gap: 20px;
+    align-items: center;
   }
 
   .user-button {
@@ -224,16 +225,16 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
-  }
-
-  .navbar-cart {
-    margin-left: 15px;
+  },
+  .cart-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
   }
 
   .cart-button {
-    text-decoration: none;
-    font-size: 20px;
     position: relative;
+    text-decoration: none;
     display: flex;
     align-items: center;
   }
@@ -250,10 +251,52 @@
     right: -10px;
   }
 
-  .navbar-search svg {
-    width: 17px;
-    height: 16px;
-    color: #000;
+  .hamburger-button {
+    display: none;
+    font-size: 26px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    display: none;
+    background-color: white;
+    padding: 20px;
+  }
+
+  .mobile-menu.show {
+    display: block;
+  }
+
+  .mobile-menu-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-menu-links li {
+    margin-bottom: 10px;
+  }
+
+  .mobile-menu-links li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-logo,
+    .search-toggle,
+    .navbar-button,
+    .sex-selector,
+    .navbar-navigation {
+      display: none !important;
+    }
+
+    .hamburger-button {
+      display: block;
+    }
   }
 </style>
 
@@ -286,6 +329,20 @@
       });
   }
 
+  function toggleMobileMenu() {
+    document.getElementById("mobile-menu").classList.toggle("show");
+  }
+
+  function toggleSex() {
+    const icon = document.getElementById('sex-icon');
+    const label = document.getElementById('sex-label');
+    if (label.textContent === 'Male') {
+      label.textContent = 'Female';
+    } else {
+      label.textContent = 'Male';
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     function updateCartCount() {
       fetch('/cart.js')
@@ -304,25 +361,6 @@
     updateCartCount();
     document.addEventListener("cart:updated", updateCartCount);
   });
-
-  let isMale = true;
-
-function toggleSex() {
-  const icon = document.getElementById('sex-icon');
-  const label = document.getElementById('sex-label');
-
-  if (isMale) {
-    icon.src = "{{ 'man-asset.svg' | asset_url }}"; // Asegúrate de subir este asset también
-    label.textContent = 'Female';
-  } else {
-    icon.src = "{{ 'man-asset.svg' | asset_url }}";
-    label.textContent = 'Male';
-  }
-
-  isMale = !isMale;
-}
-
-
 </script>
 
 {% schema %}

@@ -1,4 +1,3 @@
-
 {% schema %}
 {
   "name": "custom article blog",
@@ -161,12 +160,16 @@
 {% endschema %}
 
 <div class="custom-article-blog-wrapper" style="text-align: {{ section.settings.alignment }}; color: {{ section.settings.text_color }};">
-  <{{ section.settings.heading_tag }} style="font-size: {{ section.settings.font_size }}px;">
-    {{ section.settings.title }}
-  </{{ section.settings.heading_tag }}>
-  <p>{{ section.settings.subtext }}</p>
-  {% if section.settings.view_all_link != blank %}
-    <a class="view-all" href="{{ section.settings.view_all_link }}">View All</a>
+  <div class="title-row">
+    <{{ section.settings.heading_tag }} class="main-title" style="font-size: {{ section.settings.font_size }}px; margin: 0;">
+      {{ section.settings.title }}
+    </{{ section.settings.heading_tag }}>
+    {% if section.settings.view_all_link != blank %}
+      <a class="view-all" href="{{ section.settings.view_all_link }}">View All</a>
+    {% endif %}
+  </div>
+  {% if section.settings.subtext != blank %}
+    <p class="subtitle">{{ section.settings.subtext }}</p>
   {% endif %}
 
   <div class="custom-article-blog-grid">
@@ -196,7 +199,7 @@
         {% if block.type == 'news' %}
           <div class="news-article">
             {% if block.settings.image %}
-              <img src="{{ block.settings.image | image_url: width: 300 }}" width="300" height="215" alt="{{ block.settings.title }}" />
+              <img src="{{ block.settings.image | image_url: width: 300 }}" width="" height="" alt="{{ block.settings.title | escape }}" />
             {% endif %}
             <div class="news-content">
               <h3 style="font-weight: bold;">{{ block.settings.title }}</h3>
@@ -213,82 +216,200 @@
 <style>
 .custom-article-blog-wrapper {
   padding: 40px 20px;
+  max-width: 1600px; /* Optional: constrain max width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.custom-article-blog-wrapper .view-all {
-  display: inline-block;
-  margin-top: 10px;
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.view-all {
+  color: black !important;
+  font-weight: 500;
   text-decoration: underline;
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .custom-article-blog-grid {
   display: flex;
-  gap: 5px;
+  gap: 20px; /* Increased gap slightly */
   margin-top: 30px;
 }
 
 .main-article-wrapper {
-  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex: 2; /* Give main article more space */
 }
 
 .news-article-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 1;
+  flex: 1; /* Give news less space */
+}
+
+.main-article {
+ width: 100%;
 }
 
 .main-article-image {
-  width: 800px;
-  height: 450px;
+  width: 100%; /* Make image responsive */
+  padding-top: 56.25%; /* Aspect ratio 16:9 (9/16*100) */
+  height: 0;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
   position: relative;
-  display: flex;
-  align-items: flex-end;
+  display: flex; /* Use flex for text positioning */
 }
 
+/* Adjusted text positioning slightly */
 .main-article-text {
   position: absolute;
   padding: 20px;
+  max-width: 80%; /* Prevent text spilling out */
+}
+.main-article-text h2,
+.main-article-text p {
+  margin: 0 0 10px 0; /* Add spacing between title/subtitle */
 }
 
-.main-article-text.top-left {
-  top: 0;
-  left: 0;
-}
-.main-article-text.top-right {
-  top: 0;
-  right: 0;
-}
-.main-article-text.bottom-left {
-  bottom: 0;
-  left: 0;
-}
-.main-article-text.bottom-right {
-  bottom: 0;
-  right: 0;
-}
+.main-article-text.top-left { top: 0; left: 0; }
+.main-article-text.top-right { top: 0; right: 0; text-align: right; }
+.main-article-text.bottom-left { bottom: 0; left: 0; }
+.main-article-text.bottom-right { bottom: 0; right: 0; text-align: right; }
 
 .news-article {
-  width: 100%;
-  height: 215px;
   display: flex;
-  gap: 20px;
+  gap: 15px; /* Gap between image and text */
   align-items: flex-start;
+  /* Removed fixed width/height */
 }
 
 .news-article img {
-  width: 300px;
-  height: 215px;
+  width: 150px; /* Fixed width for news image */
+  height: 100px; /* Fixed height */
   object-fit: cover;
   border-radius: 8px;
+  flex-shrink: 0; /* Prevent image shrinking */
 }
 
+.news-content {
+  flex-grow: 1; /* Allow content to take remaining space */
+}
 .news-content h3 {
-  margin: 0;
-  font-size: 20px;
+  margin: 0 0 5px 0;
+  font-size: 18px; /* Slightly smaller */
   font-weight: bold;
+}
+.news-content p {
+  margin: 0 0 5px 0;
+  font-size: 14px; /* Smaller text */
+  line-height: 1.4;
+}
+
+/* 🔻 Responsive styles */
+@media screen and (max-width: 768px) {
+  .custom-article-blog-grid {
+    flex-direction: column; /* Stack main above news wrapper */
+    gap: 30px; /* Add space between main and news row */
+  }
+
+  .main-article-wrapper,
+  .news-article-wrapper {
+    flex: none; /* Reset flex factor */
+    width: 100%; /* Take full width */
+  }
+
+  .main-article-image {
+     /* Keep 16:9 aspect ratio, adjust padding-top if needed */
+     /* Example: padding-top: 60%; */
+  }
+  .main-article-text {
+     padding: 15px; /* Reduce padding */
+     max-width: 90%; /* Allow slightly more width */
+  }
+   .main-article-text h2 {
+     font-size: calc({{ block.settings.title_size }}px * 0.8); /* Scale down font */
+   }
+   .main-article-text p {
+     font-size: calc({{ block.settings.subtitle_size }}px * 0.9); /* Scale down font */
+   }
+
+
+  .news-article-wrapper {
+    flex-direction: row;    /* <<< CHANGED: Arrange news items horizontally */
+    flex-wrap: wrap;       /* <<< ADDED: Allow wrapping */
+    justify-content: center; /* <<< ADDED: Center items in the row */
+    gap: 15px;             /* Adjust gap between news items */
+  }
+
+  .news-article {
+    flex-direction: column; /* Stack image vertically (or keep row if preferred) */
+    align-items: center;  /* Center the image */
+    width: calc(50% - 10px); /* Example: 2 items per row */
+    max-width: 150px; /* Max width for each item */
+    gap: 0; /* No gap needed if only image is shown */
+    /* Remove height constraint if any */
+    height: auto;
+  }
+
+  .news-article img {
+    width: 100%; /* Image takes full width of its container */
+    height: auto; /* Maintain aspect ratio */
+    /* Keep other image styles like border-radius */
+  }
+
+  .news-content {
+    display: none;         /* <<< KEPT: Hide title/subtext/text */
+  }
+
+   /* Adjust title row for smaller screens */
+   .title-row {
+    display: flex;
+    justify-content: space-between; /* Keeps title left, view all right */
+    align-items: center;          /* Vertically aligns them */
+    gap: 20px;
+    margin-bottom: 0;
+  }
+   .main-title {
+      /* Optionally reduce main title size */
+      /* font-size: calc({{ section.settings.font_size }}px * 0.8); */
+   }
+   .view-all {
+      /* Adjust view all link if needed */
+   }
+   .subtitle {
+      margin-bottom: 15px; /* Reduce bottom margin */
+   }
+}
+
+/* Optional: Adjust for even smaller screens */
+@media screen and (max-width: 480px) {
+    .news-article {
+       width: calc(50% - 8px); /* Adjust width and gap for smaller screens */
+       max-width: 120px;
+    }
+    .news-article-wrapper {
+       gap: 10px;
+    }
+    .main-article-text h2 {
+       font-size: calc({{ block.settings.title_size }}px * 0.7);
+     }
+     .main-article-text p {
+       font-size: calc({{ block.settings.subtitle_size }}px * 0.8);
+     }
 }
 </style>

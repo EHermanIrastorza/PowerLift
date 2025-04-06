@@ -200,6 +200,29 @@
   .product-price-button:hover {
     background-color: #333;
   }
+
+  /* 🔁 RESPONSIVE STYLES */
+  @media (max-width: 768px) {
+    .list-wrapper {
+      display: none;
+    }
+
+    .header-group {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title-wrapper {
+      align-items: center;
+      text-align: center !important;
+    }
+
+    .bundle-title,
+    .bundle-subtitle {
+      text-align: center;
+    }
+  }
 </style>
 
 <div class="bundle-section">
